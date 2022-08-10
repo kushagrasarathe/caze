@@ -8,32 +8,31 @@ import Button from "./Button";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function Navbar() {
-  const [isNavExpanded, setIsNavExpanded] = useState(false);
-  
+  const [isNavExpanded, setIsNavExpanded] = useState(true);
+
   return (
     <nav className={styles.nav}>
       <div className={styles.hamMenu}>
         <div className={styles.logo}>
-
-        <Link href={"/"}>
-          <a >
-            <Image src={logo}></Image>
-          </a>
-        </Link>
+          <Link href={"/"}>
+            <a>
+              <Image src={logo}></Image>
+            </a>
+          </Link>
         </div>
-        <button
-          onClick={() => {
-            setIsNavExpanded(!isNavExpanded);
-            console.log(isNavExpanded);
-          }}
-          className={styles.hamBtn}
-        >
-          {isNavExpanded ? "☰" : "✖"}
-        </button>
-        {/* }} className={styles.hamBtn}>{ isNavExpanded ? "&#10006;" : ""}</button> */}
+        <div>
+          <button
+            onClick={() => {
+              setIsNavExpanded(!isNavExpanded);
+              console.log(isNavExpanded);
+            }}
+            className={styles.hamBtn}
+          >
+            {isNavExpanded ? "☰" : "✖"}
+          </button>
+        </div>
       </div>
 
-      <hr className={styles.line} />
       <div
         className={` ${styles.menu} ${
           isNavExpanded ? styles.displayMenu : "list"
@@ -55,6 +54,7 @@ export default function Navbar() {
               <a>Register</a>
             </Link>
           </li>
+
           <li>
             <Link href="/account/user">
               <a>User</a>
@@ -65,28 +65,36 @@ export default function Navbar() {
               <a>Creator</a>
             </Link>
           </li>
+
           <li>
             <Link href="/team">
               <a>Team</a>
             </Link>
           </li>
+
+          <li className={styles.hide}>
+            <a href="https://twitter.com/caze_xyz" target="_blank">
+              <Image src={twitter} />
+            </a>
+          </li>
+          <li className={styles.hide}>
+            <span className={styles.connect_btn}>
+              <ConnectButton />
+            </span>
+          </li>
+
+          
         </ul>
       </div>
-      {/* <hr className={styles.line} /> */}
 
-      <ul className={`${styles.navRight} ${styles.list}`}>
-        <li>
-          <a href="https://twitter.com/caze_xyz" target="_blank">
-            <Image src={twitter} />
-          </a>
-        </li>
-
-        <ConnectButton />
-
-        {/* <button className={styles.btnConnect} role="button">
-          Connect Wallet
-        </button> */}
-      </ul>
+      <div className={`${styles.show} ${styles.navRight}`}>
+        <a href="https://twitter.com/caze_xyz" target="_blank">
+          <Image src={twitter} />
+        </a>
+        <span className={`${styles.show} ${styles.connect_btn}`}>
+          <ConnectButton />
+        </span>
+      </div>
     </nav>
   );
 }

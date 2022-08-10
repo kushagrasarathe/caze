@@ -1,6 +1,6 @@
 .container {
   /* margin: 20px; */
-  padding: 0rem 2.5rem;
+  padding: 1rem 2.5rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -25,12 +25,13 @@
 }
 
 .title {
+  /* font-size: 48px; */
+  font-size: calc(20px + (35 - 20) * (100vw - 320px) / (1920 - 320));
   display: inline-block;
-  margin: 0 auto;
+  margin: 20px auto;
   font-weight: 700;
   text-transform: uppercase;
   text-align: center;
-  font-size: 54px;
   animation: background 10s linear infinite;
   background: linear-gradient(
     60deg,

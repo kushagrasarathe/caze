@@ -27,6 +27,18 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
+
+      <body className={styles.container}>
+
+      <main className={styles.main}>
+        <h1 className={styles.title}>CAZE</h1>
+      </main>
+
+
+
+      </body>
+
+
       <div className={styles.container}>
         {/* main section */}
         <main className={styles.main}>
@@ -163,7 +175,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.sponsor_section}>
+        {/* <div className={styles.sponsor_section}>
           <h1 className={styles.section_heading}>Powered By</h1>
           <div className={styles.sponsors}>
           <div className={styles.sponsor}>
@@ -188,7 +200,7 @@ export default function Home() {
               <Image src={ceramic} />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
