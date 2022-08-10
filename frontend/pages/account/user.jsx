@@ -1,19 +1,19 @@
 import React from "react";
 import styles from "../../styles/Home.module.css";
 import Image from "next/image";
-import subscription_nft from "../../src/assets/gold-nft.gif";
+import subscription_nft from "../../src/assets/gold.png";
 import profile from "../../src/assets/profile.png";
 
 export default function user() {
   return (
     <>
-      <div className={`${styles.container}`}>
+      <div className={`${styles.explore}`}>
         <h1 className={styles.section_heading}>User Account Details</h1>
         <div className={`${styles.user_section}`}>
           <div className={styles.account_card}>
-            <div className={styles.profile_image}>
+            {/* <div className={styles.profile_image}>
               <Image src={profile} />
-            </div>
+            </div> */}
             <h2 className={styles.card_title}>Wallet Details</h2>
             <h3>Address: </h3>
             <span>0xA25c5bE1324764573dE0a14ABFe0279B4291adfA</span>

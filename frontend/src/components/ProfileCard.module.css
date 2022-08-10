@@ -30,7 +30,7 @@
 }
 
 .profile_intro {
-  text-align: justify;
+  text-align: center;
   margin: 10px;
   overflow: hidden;
   font-size: 18px;
@@ -142,8 +142,6 @@
 
 .card .glow {
   position: relative;
-  /* width: 100%;
-    height: 100%; */
   left: 0;
   top: 0;
 
@@ -161,144 +159,28 @@
   display: block;
   padding: 20px;
   border-radius: 20px;
-  /* box-shadow: 0 1px 5px #6c6fd6;  */
   box-shadow: 0px 0px 3px 2px #64a9f8;
 
-  /* box-shadow: 0 1px 5px linear-gradient(to top left, #f8acff -5%, #696eff 100% ); */
-  /* -webkit-box-shadow: 18px 18px 4px -4px rgba(58, 235, 255, 0.75);
-    -moz-box-shadow: 18px 18px 4px -4px rgba(58, 235, 255, 0.75);
-    box-shadow: 8px 8px 4px -4px rgba(116, 179, 255, 0.75); */
 }
 
-/* .border {
-    --angle: 0deg;
-    border: 3px solid;
-    margin: 20px;
-    border-image: linear-gradient(var(--angle), #64a9f8, #d073ff, #a3e3f8) 1;
-    animation: 5s rotate linear infinite;
-  } 
-   
-  @keyframes rotate {
-    to {
-      --angle: 360deg;
-    }
-  }
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  } */
 
+@media screen and (max-width: 992px) {
 
-
-/* 
-  @media (max-width: 480px) {
-    .card {
-      margin: 30px;
-      text-align: center;
-    }
-  
-    .content {
-      flex-direction: column;
-    }
-  
-    .image {
-      max-width: 250px;
-      margin: 30px;
-    }
-
-    .cardHeader {
-      font-size: 2rem;
-    }
-    .cardText {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 200px;
-      font-size: 18px;
-    }
-  }
-  
-  @media (min-width: 481px) and (max-width: 767px) {
-    .card {
-      margin: 30px;
-      text-align: center;
-    }
-  
-    .content {
-      flex-direction: column;
-    }
-  
-    .image {
-      max-width: 250px;
-      margin: 30px;
-    }
-    .cardText {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 350px;
-    }
-  }
-  
-  @media (min-width: 768px) and (max-width: 1024px) {
-    .card {
-      margin: 30px;
-      text-align: center;
-    }
-  
-    .image {
-      max-width: 250px;
-      margin: 30px;
-    }
-  
-    .content {
-      flex-direction: column;
-    }
-
-    .cardText {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 600px;
-    }
-    
-  }
-  
-  @media (min-width: 1025px) and (max-width: 1280px) {
-    .card {
-      margin: 30px;
-      text-align: center;
-    }
-    .image {
-      max-width: 250px;
-      margin: 30px;
-    }
-    
-    .cardText {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 800px;
-    }
-  }
-  
-
-  @media (min-width: 1281px) {
-    .card {
-      text-align: center;
-    }
-  
-    .content {
-      align-items: center;
-    }
-
-    .cardText {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 800px;
-    }
+  .profile_card {
+  margin: 25px auto;
+  padding: 1rem;
 
   }
-   */
+
+  .profile_image {
+    max-width: 120px;
+  }
+
+  .profile_name {
+    font-size: 18px;
+  }
+  .profile_intro {
+    font-size: 14px;
+  }
+
+}

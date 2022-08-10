@@ -6,8 +6,7 @@ import Link from "next/link";
 export default function ProfileCard(props) {
   return (
     <>
-      <div className={`${styles.profile_card}`}>
-        <div className={`${styles.card_border} `}>
+      <div className={`${styles.profile_card} ${styles.card_border} `}>
           <div className={styles.profile_image}>
             <Image src={props.image} className={styles.profile_image} alt="creator profile picture" />
           </div>
@@ -16,7 +15,6 @@ export default function ProfileCard(props) {
           <Link href={"/profile/kushagra"}>
             <button className={styles.visit_btn}>Visit Profile</button>
           </Link>
-        </div>
       </div>
     </>
   );

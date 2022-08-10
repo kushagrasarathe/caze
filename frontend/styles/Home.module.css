@@ -12,7 +12,19 @@
   margin: 20px auto;
   padding: 0rem 2rem;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+
+.explore {
+  min-height: 84vh;
+  margin: 20px auto;
+  /* padding: 0rem 2rem; */
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
@@ -167,6 +179,7 @@
   box-sizing: border-box;
   text-align: center;
 }
+
 
 .shadow {
   display: block;
@@ -417,9 +430,9 @@
 
 .team_section {
   /* height: 1000px; */
-  margin: 135px auto;
+  /* margin: 135px auto; */
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
   /* flex-direction: row; */
@@ -481,7 +494,7 @@
     #00d8db,
     #3ee1c6
   );
-  background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+  /* background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c); */
   border-radius: 8px;
   border: 2px solid rgb(255, 255, 255);
   transition: transform ease-in 0.2s;
@@ -529,7 +542,7 @@
     #00d8db,
     #3ee1c6
   );
-  background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+  /* background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c); */
   border-radius: 8px;
   border: 2px solid rgb(255, 255, 255);
   transition: transform ease-in 0.2s;
@@ -575,6 +588,11 @@
 .creator_content {
   text-align: center;
   margin: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
 }
 
 .creator_content * {
@@ -614,6 +632,16 @@
   transform: scale(1.15);
 }
 
+.content {
+  max-width: 400px;
+  margin: 15px;
+}
+
+.creator_nft {
+  max-width: 500px;
+  margin: 15px;
+}
+
 @keyframes background {
   0% {
     background-position: 0% 50%;
@@ -624,6 +652,11 @@
 }
 
 @media screen and (max-width: 992px) {
+
+  .user_section, .creator_section {
+    margin: 0 auto;
+  }
+
   .title {
     font-size: 38px;
   }
@@ -651,4 +684,20 @@
   .wallet_details {
     text-align: center;
   }
+
+  .explore {
+    /* margin: 0 auto; */
+    /* max-width: 100%; */
+  }
+
+
+  .content {
+    /* width: 400px; */
+    margin: 5px;
+  }
+  
+  .creator_nft {
+    margin: 5px;
+  }
+
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import ProfileCard from "../src/components/ProfileCard";
 import kushagra from "../src/assets/kushagra.jpg";
-import shouryam from "../src/assets/shouryam.jpg";
 import dhruv from "../src/assets/dhruv.jpg";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
@@ -68,7 +67,7 @@ export default function Explore() {
 
   return (
     <>
-      <div className={styles.container}>
+      <div className={styles.explore}>
         <h1 className={styles.section_heading}>Creators</h1>
         <div className={styles.explore_cards}>
           <ProfileCard
@@ -86,13 +85,7 @@ export default function Explore() {
             }
           />
 
-          <ProfileCard
-            image={shouryam}
-            name={"Shouryam Kumar"}
-            intro={
-              "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate corporis placeat earum at ex illo eos sint a optio natus, saepe doloremque sapiente dolorem sunt, voluptas perspiciatis iure repellendus facilis."
-            }
-          />
+          
         </div>
       </div>
     </>

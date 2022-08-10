@@ -153,7 +153,7 @@ export default function () {
 
   return (
     <>
-      <div className={styles.container}>
+      <div className={styles.explore}>
         <h1 className={styles.section_heading}>Register</h1>
         <div className={styles.register_section}>
           <p>Please fill this form to register as creator.</p>
