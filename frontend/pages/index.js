@@ -27,27 +27,14 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-
-      <body className={styles.container}>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>CAZE</h1>
-      </main>
-
-
-
-      </body>
-
-
       <div className={styles.container}>
-        {/* main section */}
         <main className={styles.main}>
           <h1 className={styles.title}>CAZE</h1>
           <span className={styles.banner}>
             <Image src={banner} />
           </span>
           <span className={styles.tagline}>
-            Subscribe to your favorite creators And get access to exclusive
+            Subscribe and suport your favorite creators and get access to exclusive
             content
           </span>
 
@@ -55,8 +42,11 @@ export default function Home() {
             <button className={styles.explore_btn}> Explore </button>
           </Link>
         </main>
+      </div>
+      
 
-        {/* categories section */}
+      <div className={styles.container}>
+
         <div className={styles.category}>
           <h1 className={styles.section_heading}>Explore among categories</h1>
           <div className={styles.categories_cards}>
@@ -100,6 +90,8 @@ export default function Home() {
           </div>
         </div>
 
+
+      </div>
         <div className={styles.plans}>
           <h1 className={styles.section_heading}>Choose across 3 plans </h1>
           <div className={styles.plan_cards}>
@@ -174,34 +166,6 @@ export default function Home() {
             </Hover>
           </div>
         </div>
-
-        {/* <div className={styles.sponsor_section}>
-          <h1 className={styles.section_heading}>Powered By</h1>
-          <div className={styles.sponsors}>
-          <div className={styles.sponsor}>
-              <Image src={ipfs} />
-            </div>
-            <div className={styles.sponsor}>
-              <Image src={spheron} />
-            </div>
-            
-            <div className={styles.sponsor}>
-              <Image src={nftport} />
-            </div>
-            
-            <div className={styles.sponsor}>
-              <Image src={valist} />
-            </div>
-            <div className={styles.sponsor}>
-              <Image src={web3storage} />
-              Web3.Storage
-            </div>
-            <div className={styles.sponsor}>
-              <Image src={ceramic} />
-            </div>
-          </div>
-        </div> */}
-      </div>
     </>
   );
 }

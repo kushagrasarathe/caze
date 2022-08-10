@@ -15,20 +15,6 @@ export default function Card(props) {
           <p className={styles.card_content}>{props.matter}</p>
         </div>
       </div>
-
-      {/* <div className={`${styles.card}`}>
-        <div className={`${styles.shadow}  ${styles.glow}`}>
-          <div className={`${styles.content} ${styles.border}`}>
-            <div>
-              <h1 className={styles.cardHeader}>{props.heading}</h1>
-              <p className={styles.cardText}>{props.matter}</p>
-            </div>
-            <a className={styles.image}>
-              <Image src={props.img} alt="" />
-            </a>
-          </div>
-        </div>
-      </div> */}
     </>
   );
 }
