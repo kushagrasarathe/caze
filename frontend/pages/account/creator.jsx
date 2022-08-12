@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../styles/Home.module.css";
 import Image from "next/image";
 import creator_nft from "../../src/assets/creator-nft.png";
@@ -6,9 +6,12 @@ import content1 from "../../src/assets/gold.png";
 import content2 from "../../src/assets/silver.png";
 import profile from "../../src/assets/profile.png";
 import { useAccount } from "wagmi";
+import { constants } from "ethers";
 
 export default function creator() {
   const [isCreator, setIsCreator] = useState(false);
+  const [creator, setCreator] = useState({});
+  const [id, setId] = useState(0);
   const { address } = useAccount();
   const { data: signer } = useSigner();
   const provider = useProvider();
@@ -25,6 +28,24 @@ export default function creator() {
       console.log(check);
       // fetch the value from the fetch
       setIsCreator(check);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchCreator = async () => {
+    try {
+      console.log("Fetching Creator Id");
+      const id = await Creator_contract.getId(address);
+
+      // separate the id value from value
+      console.log(id);
+
+      console.log("Fetching Creators details");
+      const data = await Creator_contract.fetchCreators(id);
+      console.log(data);
+      // set the Data part to creator Details
+      setCreator(data);
     } catch (error) {
       console.log(error);
     }
