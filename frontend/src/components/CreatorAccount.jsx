@@ -7,12 +7,18 @@ import content2 from "../../src/assets/silver.png";
 import profile from "../../src/assets/profile.png";
 import { constants } from "ethers";
 import {
-    useContract,
-    useSigner,
-    useProvider,
-    useAccount,
-    useConnect,
-  } from "wagmi";
+  useContract,
+  useSigner,
+  useProvider,
+  useAccount,
+  useConnect,
+} from "wagmi";
+import {
+  Creator_Contract_address,
+  Creator_Contract_ABI,
+  Content_ABI,
+  Content_Contract_address,
+} from "../utils/constants";
 
 export default function creator() {
   const [isCreator, setIsCreator] = useState(false);
