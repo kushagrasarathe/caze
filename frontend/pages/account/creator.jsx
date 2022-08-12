@@ -8,7 +8,27 @@ import profile from "../../src/assets/profile.png";
 import { useAccount } from "wagmi";
 
 export default function creator() {
+  const [isCreator, setIsCreator] = useState(false);
   const { address } = useAccount();
+  const { data: signer } = useSigner();
+  const provider = useProvider();
+  const Creator_contract = useContract({
+    addressOrName: Creator_Contract_address,
+    contractInterface: Creator_Contract_ABI,
+    signerOrProvider: signer || provider,
+  });
+
+  const checkCreator = async () => {
+    try {
+      console.log("Checking if Creator or Not");
+      const check = await Creator_contract.checkStatus(address);
+      console.log(check);
+      // fetch the value from the fetch
+      setIsCreator(check);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -34,10 +54,8 @@ export default function creator() {
             <div className={styles.user_subscription}>
               {/* <h2 className={styles.card_title}>Creator NFT</h2> */}
               <div className={styles.creator_nft}>
-              <Image src={creator_nft} />
-
+                <Image src={creator_nft} />
               </div>
-
             </div>
           </div>
           {/* <hr /> */}
@@ -53,7 +71,6 @@ export default function creator() {
           </div>
         </div>
       </div>
-
     </>
   );
 }

@@ -13,6 +13,11 @@ interface NFT {
 contract Creators is Ownable {
     NFT nft;
 
+    struct user {
+        uint256 _creatorId;
+        bool isCreator;
+    }
+
     struct creator {
         address creatorAddress;
         string userData;
@@ -24,6 +29,7 @@ contract Creators is Ownable {
 
     // mapping from CreatorID to creator Struct
     mapping(uint256 => creator) creators;
+    mapping(address => user) _user;
 
     uint256 id = 0;
 
@@ -50,6 +56,7 @@ contract Creators is Ownable {
         require(_creatorAddress != address(0), "Enter a Valid Address");
         creators[id] = creator(_creatorAddress, _userData, 0, 0);
         uint256 _id = id;
+        _user[_creatorAddress] = user(_id, true);
         nft.mint(_creatorAddress, 3);
         emit creatorAdded(_id, _creatorAddress, _userData);
         id += 1;
@@ -132,6 +139,14 @@ contract Creators is Ownable {
     // returns the address for the Creator ID
     function fetchBalance(uint256 _id) public view returns (uint256) {
         return creators[_id].balance;
+    }
+
+    function getId(address user) public view returns (uint256) {
+        return _user[user]._creatorId;
+    }
+
+    function checkStatus(address user) public view returns (bool) {
+        return _user[user].isCreator;
     }
 
     /// to check to make some functions internal so that nobody else can change these values

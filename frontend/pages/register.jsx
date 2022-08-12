@@ -37,7 +37,9 @@ export default function () {
 
   const [ipfsData, setIpfsData] = useState("");
 
+  /// show the ID with The Sharable link to the user
   const [id, setId] = useState(0);
+  const [SharableLink, setSharableLink] = useState("");
 
   const { address, isConnected } = useAccount();
   const { connect } = useConnect();
@@ -102,8 +104,10 @@ export default function () {
       const ID = parseInt(tx.value._hex);
       console.log(ID);
       setId(ID);
+      const link = `https://localhost:3000/profile/${ID}`;
+      setSharableLink(link);
       console.log("Creator Added and Profile added Successfully🚀🚀");
-      uploadContent();
+      uploadContent(ID);
       return true;
     } catch (err) {
       console.log(err);
@@ -111,7 +115,7 @@ export default function () {
   };
 
   /// to upload the content to ipfs --- working
-  async function uploadContent() {
+  async function uploadContent(_id) {
     try {
       console.log("Uploading Content to IPFS ... ");
       console.log(content);
@@ -122,7 +126,7 @@ export default function () {
         "Content uploaded to IPFS successfully 🚀🚀  with CID : ",
         hash
       );
-      addContent(id, hash);
+      addContent(_id, hash);
       return true;
     } catch (error) {
       console.log("Error uploading file: ", error);
@@ -130,11 +134,11 @@ export default function () {
   }
 
   /// function to add the creator to the contract with the details
-  const addContent = async () => {
+  const addContent = async (_id, _hash) => {
     try {
       console.log(id);
       console.log("Adding the Content for the Creator... ");
-      const tx = await Content_contract.addContent(0, contentIpfs);
+      const tx = await Content_contract.addContent(_id, _hash);
       await tx.wait();
       console.log(tx.hash);
       console.log(tx);
