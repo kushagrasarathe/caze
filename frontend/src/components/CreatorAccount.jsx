@@ -19,6 +19,7 @@ import {
   Content_ABI,
   Content_Contract_address,
 } from "../utils/constants";
+import { GetData } from "../../src/components/GetData";
 
 export default function creator() {
   const [isCreator, setIsCreator] = useState(false);
@@ -27,12 +28,20 @@ export default function creator() {
   const { address } = useAccount();
   const { data: signer } = useSigner();
   const provider = useProvider();
+
   const Creator_contract = useContract({
     addressOrName: Creator_Contract_address,
     contractInterface: Creator_Contract_ABI,
     signerOrProvider: signer || provider,
   });
 
+  const Content_contract = useContract({
+    addressOrName: Content_Contract_address,
+    contractInterface: Content_ABI,
+    signerOrProvider: signer || provider,
+  });
+
+  /// Check for creator if the user is one or Not , and accordingly render the Data
   const checkCreator = async () => {
     try {
       console.log("Checking if Creator or Not");
@@ -45,6 +54,7 @@ export default function creator() {
     }
   };
 
+  /// fetch the creator data and ipfs CID from the Creator Contract
   const fetchCreator = async () => {
     try {
       console.log("Fetching Creator Id");
@@ -58,6 +68,29 @@ export default function creator() {
       console.log(data);
       // set the Data part to creator Details
       setCreator(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  /// fetch the data from the CID from IFPS for both type of datas
+  const fetchIPFS = async (_cid) => {
+    console.log("fetching the files");
+    // const _cid = "bafkreifxtpdf5lcmkqjqmpe4wjgfl4rbov23ryn5merejridxk27pfzufq";
+    const data = await GetData(_cid);
+    console.log(data);
+
+    /// get the json and use that json for further processing of the data
+    /// {name , description(bio) , image (pfp), }
+  };
+
+  /// Fetching the Ipfs CID array from the content contract for the creator
+  const fetchContent = async (_id) => {
+    try {
+      console.log("Fetching content for the creator");
+      const response = await Content_contract.getContent(_id);
+      /// we get the array of IPFS strings , need to render the data from that link on the page
+      console.log("Data fetched");
     } catch (error) {
       console.log(error);
     }
