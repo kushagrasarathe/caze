@@ -11,8 +11,16 @@ import {
   Content_Contract_address,
 } from "../utils/constants";
 
-import { useContract, useSigner, useProvider, useAccount } from "wagmi";
+import {
+  useContract,
+  useSigner,
+  useProvider,
+  useAccount,
+  useConnect,
+} from "wagmi";
 import { StoreData } from "../src/components/StoreData";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+
 export default function () {
   const [isLoading, setIsLoading] = useState(false);
   /// to set the Content Uploaded
@@ -31,7 +39,9 @@ export default function () {
 
   const [id, setId] = useState(0);
 
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
+  const { connect } = useConnect();
+
   const { data: signer } = useSigner();
   const provider = useProvider();
   const Creator_contract = useContract({
@@ -209,10 +219,14 @@ export default function () {
           {/* {fileUrl && <img src={fileUrl} width="600px" />} */}
           <hr />
 
-          <button className={styles.submit_btn} onClick={handleSubmit}>
-            {" "}
-            Register{" "}
-          </button>
+          {isConnected ? (
+            <button className={styles.submit_btn} onClick={handleSubmit}>
+              {" "}
+              Register{" "}
+            </button>
+          ) : (
+            <ConnectButton />
+          )}
         </div>
       </div>
     </>

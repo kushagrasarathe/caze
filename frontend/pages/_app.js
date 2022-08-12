@@ -6,7 +6,6 @@ import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
-import { Provider } from "@self.id/react";
 
 const { chains, provider } = configureChains(
   [chain.polygonMumbai],
@@ -26,18 +25,16 @@ const wagmiClient = createClient({
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Provider client={{ ceramic: "testnet-clay" }}>
-      <WagmiConfig client={wagmiClient}>
-        <RainbowKitProvider chains={chains}>
-          {/* <NextUIProvider> */}
-          <Navbar />
-          <Component {...pageProps} />
-          <hr />
-          <Footer />
-          {/* </NextUIProvider> */}
-        </RainbowKitProvider>
-      </WagmiConfig>
-    </Provider>
+    <WagmiConfig client={wagmiClient}>
+      <RainbowKitProvider chains={chains}>
+        {/* <NextUIProvider> */}
+        <Navbar />
+        <Component {...pageProps} />
+        <hr />
+        <Footer />
+        {/* </NextUIProvider> */}
+      </RainbowKitProvider>
+    </WagmiConfig>
   );
 }
 
