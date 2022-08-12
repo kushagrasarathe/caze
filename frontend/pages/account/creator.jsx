@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../styles/Home.module.css";
 import Image from "next/image";
 import creator_nft from "../../src/assets/creator-nft.png";
 import content1 from "../../src/assets/gold.png";
 import content2 from "../../src/assets/silver.png";
 import profile from "../../src/assets/profile.png";
-import { useAccount } from "wagmi";
 import { constants } from "ethers";
+import { GetData } from "../../src/components/GetData";
+import { useContract, useSigner, useProvider, useAccount } from "wagmi";
+import {
+  Creator_Contract_address,
+  Creator_Contract_ABI,
+  Content_ABI,
+  Content_Contract_address,
+} from "../../utils/constants";
 
 export default function creator() {
   const [isCreator, setIsCreator] = useState(false);
   const [creator, setCreator] = useState({});
+  const [data, setData] = useState({});
   const [id, setId] = useState(0);
   const { address } = useAccount();
   const { data: signer } = useSigner();
@@ -42,14 +50,28 @@ export default function creator() {
       console.log(id);
 
       console.log("Fetching Creators details");
-      const data = await Creator_contract.fetchCreators(id);
-      console.log(data);
-      // set the Data part to creator Details
-      setCreator(data);
+      const _data = await Creator_contract.fetchCreators(id);
+      console.log(_data);
+      // set this data and get the IPFS hash from this object
+      setData(_data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const fetchIPFS = async (_cid) => {
+    console.log("fetching the files");
+    // const _cid = "bafkreifxtpdf5lcmkqjqmpe4wjgfl4rbov23ryn5merejridxk27pfzufq";
+    const data = await GetData(_cid);
+    console.log(data);
+
+    /// get the json and use that json for further processing of the data
+    /// {name , description(bio) , image (pfp), }
+  };
+
+  useEffect(() => {
+    fetchIPFS();
+  });
 
   return (
     <>

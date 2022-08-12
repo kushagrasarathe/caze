@@ -23,4 +23,5 @@ export const GetData = async (cid) => {
   for (const file of files) {
     console.log(`${file.cid} -- ${file.path} -- ${file.size}`);
   }
+  return files;
 };
