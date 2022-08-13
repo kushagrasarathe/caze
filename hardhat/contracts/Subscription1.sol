@@ -50,6 +50,7 @@ contract SubscriptionPlan {
         uint256 planId;
         uint256 start;
         uint256 nextPayment;
+        bool subscriptionOn;
     }
     /// intialize a subscriptions for a creator
     /// mapping from user address-->creator Id--> Subscription taken
@@ -150,7 +151,8 @@ contract SubscriptionPlan {
         subscriptions[msg.sender][_creatorID] = Subscription(
             _planId,
             block.timestamp,
-            block.timestamp + _frequency
+            block.timestamp + _frequency,
+            true
         );
         subscribers[_creatorID].push(msg.sender);
         /// will mint the NFT right after the adding to subscriptions list

@@ -5,6 +5,9 @@ import subscription_nft from "../../src/assets/gold.png";
 import profile from "../../src/assets/profile.png";
 
 export default function user() {
+  /// renders some basic users info ,
+  /// subscribed creators list
+
   return (
     <>
       <div className={`${styles.explore}`}>
