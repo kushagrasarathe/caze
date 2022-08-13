@@ -15,6 +15,7 @@ import { useState, useEffect } from "react";
 
 export default function Explore() {
   const [noId, SetNoId] = useState(0);
+  const [creator, SetCreator] = useState([]);
   const provider = useProvider();
 
   const Creator_contract = useContract({
@@ -40,7 +41,7 @@ export default function Explore() {
       const data = await Creator_contract.fetchURI(id);
       console.log("Data Uri fetched");
       const response = await fetchIPFS(data.value);
-
+      return response;
       /// render this response in the card below to show the data
       return <ProfileCard image={data.pfp} name={data.Name} intro={data.bio} />;
     } catch (err) {
@@ -50,12 +51,21 @@ export default function Explore() {
 
   const fetchCreators = async () => {
     try {
+      const data = [];
       const noId = await fetchNoId();
       console.log("Fetching...");
       //// we need to run a loop from 0 --- > id , that will fectch the data for every creator, fetchCreators is called in useEffect
       // you just need to render all the data in seperate cards
       // return(
       // )
+
+      /// render this respone , store in the array
+      for (let id = 0; id <= noId; id++) {
+        const _creator = await fetchCreator(id);
+        data.push(_creator);
+      }
+      SetCreator(data);
+      /// render this data array to show all the data on the screen
     } catch (error) {
       console.log(error);
     }
