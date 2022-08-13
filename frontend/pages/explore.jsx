@@ -16,27 +16,32 @@ import { useState, useEffect } from "react";
 export default function Explore() {
   const [noId, SetNoId] = useState(0);
   const provider = useProvider();
-  const contract = useContract({
+
+  const Creator_contract = useContract({
     addressOrName: Creator_Contract_address,
     contractInterface: Creator_Contract_ABI,
     signerOrProvider: provider,
   });
 
+  /// fetch the data from the CID from IFPS for both type of datas
+  const fetchIPFS = async (_cid) => {
+    console.log("fetching the files");
+    // const _cid = "bafkreifxtpdf5lcmkqjqmpe4wjgfl4rbov23ryn5merejridxk27pfzufq";
+    const data = await GetData(_cid);
+    console.log(data);
+    return data;
+    /// get the json and use that json for further processing of the data
+    /// {name , description(bio) , image (pfp), }
+  };
+
   /// for every ID
   const fetchCreator = async (id) => {
     try {
-      const did = await contract.fetchDID(id);
-      await did.wait();
-      console.log(did);
-      // const address = await contract.fetchAddress(id);
-      // await address.wait();
-      // console.log(address);
+      const data = await Creator_contract.fetchURI(id);
+      console.log("Data Uri fetched");
+      const response = await fetchIPFS(data.value);
 
-      console.log("Fetching Data from ceramic ...");
-      const data = await getRecord(did);
-      console.log("Data fetched from Ceramic Successfuly 🚀🚀");
-      console.log(data);
-
+      /// render this response in the card below to show the data
       return <ProfileCard image={data.pfp} name={data.Name} intro={data.bio} />;
     } catch (err) {
       console.log(err);
@@ -44,10 +49,16 @@ export default function Explore() {
   };
 
   const fetchCreators = async () => {
-    //// we need to run a loop from 0 --- > id , that will fectch the data for every creator, fetchCreators is called in useEffect
-    // you just need to render all the data in seperate cards
-    // return(
-    // )
+    try {
+      const noId = await fetchNoId();
+      console.log("Fetching...");
+      //// we need to run a loop from 0 --- > id , that will fectch the data for every creator, fetchCreators is called in useEffect
+      // you just need to render all the data in seperate cards
+      // return(
+      // )
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const fetchNoId = async () => {
@@ -55,7 +66,9 @@ export default function Explore() {
       console.log("fetching the Ids");
       const id = await contract.id();
       console.log(id);
+      /// parse the ID character from the id value and pass it to the user
       SetNoId(id);
+      return id;
     } catch (err) {
       console.log(err);
     }
@@ -84,8 +97,6 @@ export default function Explore() {
               "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate corporis placeat earum at ex illo eos sint a optio natus, saepe doloremque sapiente dolorem sunt, voluptas perspiciatis iure repellendus facilis."
             }
           />
-
-          
         </div>
       </div>
     </>
