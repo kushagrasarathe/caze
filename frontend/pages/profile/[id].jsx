@@ -58,11 +58,12 @@ export default function Creator() {
     // GetData(cid);
   }, [id]);
 
+  /// fetching the creator details in the contract
   const fetchCreator = async (id) => {
     try {
       console.log("Fetching data from the contract...");
 
-      const creator = await Creator_contract.fetchCreators(0);
+      const creator = await Creator_contract.fetchCreators(id);
       // console.log(parseInt(data.balance));
       // console.log(data.creatorAddress);
       // console.log(parseInt(data.subscribers));
@@ -78,6 +79,7 @@ export default function Creator() {
     }
   };
 
+  /// fetching the content from the contract
   const fetchContent = async (id) => {
     try {
       console.log("Fetching the content from IPFS ....");
@@ -91,6 +93,28 @@ export default function Creator() {
     }
   };
 
+  /// fetch the data from the CID from IFPS for both type of datas
+  const fetchIPFS = async (_cid) => {
+    console.log("fetching the files");
+    // const _cid = "bafkreifxtpdf5lcmkqjqmpe4wjgfl4rbov23ryn5merejridxk27pfzufq";
+    const data = await GetData(_cid);
+    console.log(data);
+
+    /// get the json and use that json for further processing of the data
+    /// {name , description(bio) , image (pfp), }
+  };
+
+  /// render the profile data for showing the profile of the user
+  const RenderProfile = async () => {
+    /// rendering of each of the link in the array and mapping needs to be done for each of them
+    return (
+      <div>
+        <a></a>
+      </div>
+    );
+  };
+
+  /// render content
   const RenderContent = async () => {
     /// rendering of each of the link in the array and mapping needs to be done for each of them
     return (
