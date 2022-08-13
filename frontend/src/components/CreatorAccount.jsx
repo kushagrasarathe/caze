@@ -18,7 +18,9 @@ import {
   Creator_Contract_ABI,
   Content_ABI,
   Content_Contract_address,
-} from "../utils/constants";
+  Subscription_Contract_ABI,
+  Subscription_Contract_Address,
+} from "../../utils/constants";
 import { GetData } from "../../src/components/GetData";
 
 export default function creator() {
@@ -38,6 +40,12 @@ export default function creator() {
   const Content_contract = useContract({
     addressOrName: Content_Contract_address,
     contractInterface: Content_ABI,
+    signerOrProvider: signer || provider,
+  });
+
+  const Subscription_contract = useContract({
+    addressOrName: Subscription_Contract_Address,
+    contractInterface: Subscription_Contract_ABI,
     signerOrProvider: signer || provider,
   });
 
@@ -66,7 +74,8 @@ export default function creator() {
       console.log("Fetching Creators details");
       const data = await Creator_contract.fetchCreators(id);
       console.log(data);
-      // set the Data part to creator Details
+      // set the Data(ipfs URI) part to creator Details
+      // set the Balance of the user to the balance
       setCreator(data);
     } catch (error) {
       console.log(error);
@@ -91,6 +100,18 @@ export default function creator() {
       const response = await Content_contract.getContent(_id);
       /// we get the array of IPFS strings , need to render the data from that link on the page
       console.log("Data fetched");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const Withdraw = async (_id) => {
+    try {
+      /// accepts the ID of the Creator to be able to
+      console.log("Withdrawing balance from the contract...");
+      const tx = await Subscription_contract.withdraw(_id);
+      await tx.wait();
+      console.log("Amount Withdrawn to the creator account");
     } catch (error) {
       console.log(error);
     }
