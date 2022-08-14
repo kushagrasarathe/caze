@@ -35,7 +35,7 @@ export default function Home() {
             <Image src={banner} />
           </span>
           <span className={styles.tagline}>
-            Subscribe and suport your favorite creators and get access to exclusive
+            Subscribe and support your favorite creators and get access to exclusive
             content
           </span>
 

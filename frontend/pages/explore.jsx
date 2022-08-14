@@ -10,7 +10,7 @@ import {
 } from "../utils/constants";
 import { useContract, useProvider } from "wagmi";
 // import { useContract, useProvider } from "wagmi";
-import { getRecord } from "../src/components/ceramic";
+// import { getRecord } from "../src/components/ceramic";
 import { useState, useEffect } from "react";
 
 export default function Explore() {

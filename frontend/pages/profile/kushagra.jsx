@@ -13,8 +13,11 @@ import {
   Creator_Contract_address,
 } from "../../utils/constants";
 import { useContract, useProvider } from "wagmi";
-import { getRecord } from "../../src/components/ceramic";
+// import { getRecord } from "../../src/components/ceramic";
 import { useState, useEffect } from "react";
+import RenderPost from "../../src/components/RenderPost";
+import CreatePost from "../../src/components/CreatePost";
+
 export default function Creator() {
   const [data, setData] = useState([]);
   const [did, setDid] = useState("");
@@ -61,8 +64,8 @@ export default function Creator() {
   let dataObj = {
     image: profile,
     name: "Kushagra Sarathe",
-    title: "Fronend Developer",
-    bio: "Lorem ipsum had a funny talk about rendering data. Both tried so hard to finish the porject ans submit a functional project in hackathon. ",
+    title: "Frontend Developer",
+    bio: "Lorem ipsum had a funny talk about rendering data. Both tried so hard to finish the project and submit a functional project in hackathon. ",
     content: profile,
   };
 
@@ -80,20 +83,6 @@ export default function Creator() {
         <h1>{data.name}</h1>
         <p className={styles.cardText}>{dataObj.title}</p>
         <p className={styles.about}>{dataObj.bio}</p>
-      </div>
-      <h1 className={styles.heading}>Content</h1>
-      {/* /// render content from the ipfs data.content , this will just throw a
-      IPFS link */}
-      <div className={styles.container}>
-        <div className={`${styles.item} ${styles.border}`}>
-          <Image src={dataObj.content} />
-        </div>
-        {/* <div className={`${styles.item} ${styles.border}`}>
-          <Image src={banner} />
-        </div>
-        <div className={`${styles.item} ${styles.border}`}>
-          <Image src={profile} />
-        </div> */}
       </div>
       <h1 className={styles.heading}>Subscribe</h1>
       <div className={styles.container}>
@@ -137,19 +126,24 @@ export default function Creator() {
           />
         </div>
       </div>
+
+      <h1 className={styles.heading}>Published Posts</h1>
+      {/* /// render content from the ipfs data.content , this will just throw a
+      IPFS link */}
+      <div className={styles.container}>
+        {/* <div className={`${styles.item} ${styles.border}`}>
+          <Image src={dataObj.content} />
+        </div> */}
+
+        {/* <RenderPost /> */}
+        <CreatePost />
+      </div>
       {/* <div id="profile-banner-image">
         <img
           src="https://imagizer.imageshack.com/img921/9628/VIaL8H.jpg"
           alt="Banner image"
         />
       </div> */}
-      {/* <img src="https://4.bp.blogspot.com/-b3Ty2n3mrOc/UR4MAXUXHDI/AAAAAAAAAWQ/CS31CdrnNY8/s1600/profp.jpg" className={styles.propic} alt="Profile_picture" /> */}
-      {/* 
-        <div className={styles.header}>
-          Kusahgra
-        </div>
-        <div className={styles.wrapper}>
-        </div> */}
     </div>
   );
 }

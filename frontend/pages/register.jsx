@@ -184,7 +184,7 @@ export default function () {
             <div className={styles.register_label}>Full Name</div>
             <input
               className={styles.register_input}
-              placeholder="Kushagra Sarathe"
+              placeholder="Creator Name"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -193,7 +193,7 @@ export default function () {
             <div className={styles.register_label}>Title</div>
             <input
               className={styles.register_input}
-              placeholder="NFT Artist"
+              placeholder="Title Ex: NFT Artist"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -205,7 +205,7 @@ export default function () {
             <span className={styles.small}> &#40;min 200 chars&#41;</span>{" "}
           </div>
           <textarea
-            placeholder="I make videos on YouTube"
+            placeholder="Describe your work"
             className={styles.register_input_about}
             value={bio}
             onChange={(e) => setBio(e.target.value)}
@@ -225,11 +225,13 @@ export default function () {
 
           {isConnected ? (
             <button className={styles.submit_btn} onClick={handleSubmit}>
-              {" "}
-              Register{" "}
+              Register
             </button>
           ) : (
-            <ConnectButton />
+            <div className={styles.connect_btn}>            
+              <ConnectButton />
+            </div>
+            // <ConnectButton />
           )}
         </div>
       </div>
