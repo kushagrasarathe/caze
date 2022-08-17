@@ -11,7 +11,9 @@ function makeStorageClient() {
 
 export const StoreContent = async (files) => {
   const client = makeStorageClient();
-  const cid = await client.put([files]);
+  const cid = await client.put(files, {
+    wrapWithDirectory: false,
+  });
   console.log("stored files with cid:", cid);
   setTimeout(3000);
   return cid;

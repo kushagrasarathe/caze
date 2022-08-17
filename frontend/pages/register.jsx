@@ -24,11 +24,11 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 export default function () {
   const [isLoading, setIsLoading] = useState(false);
   /// to set the Content Uploaded
-  const [content, setContent] = useState([]);
-  const [contentIpfs, setContentIpfs] = useState("");
+  // const [content, setContent] = useState([]);
+  // const [contentIpfs, setContentIpfs] = useState("");
   /// set the Profile picture set by the creator
   const [pfp, setPfp] = useState([]);
-  const [pfpIpfs, setPfpIpfs] = useState("");
+  const [pfpIpfs, setPfpIpfs] = useState([]);
 
   // sets the user Data we want to store earlier
   const [name, setName] = useState("");
@@ -42,10 +42,9 @@ export default function () {
   const [SharableLink, setSharableLink] = useState("");
 
   const { address, isConnected } = useAccount();
-  const { connect } = useConnect();
-
   const { data: signer } = useSigner();
   const provider = useProvider();
+
   const Creator_contract = useContract({
     addressOrName: Creator_Contract_address,
     contractInterface: Creator_Contract_ABI,
@@ -62,7 +61,7 @@ export default function () {
   async function uploadPfp() {
     try {
       console.log("Profile uploading to IPFS ...");
-      console.log(pfp);
+
       const CID = await StoreContent(pfp);
       const hash = `https://ipfs.io/ipfs/${CID}`;
       setPfpIpfs(hash);
@@ -70,7 +69,7 @@ export default function () {
         "Profile uploaded to IPFS successfully 🚀🚀  with CID : ",
         hash
       );
-      updateData(name, bio, title, hash, pfp);
+      updateData(name, bio, title, hash, pfpIpfs);
       return true;
     } catch (error) {
       console.log("Error uploading file: ", error);
@@ -78,16 +77,15 @@ export default function () {
   }
 
   // to update all the data to ceramic
-  const updateData = async (Name, Bio, Title, PfpIpfs, Pfp) => {
+  const updateData = async (Name, Bio, Title, _PfpIpfs, _pfp) => {
     try {
       console.log("Updating data to the IPFS");
-      const CID = await StoreData(Name, Bio, Title, PfpIpfs, Pfp);
-      const hash = `https://ipfs.io/ipfs/${CID}`;
+      const CID = await StoreData(Name, Bio, Title, _PfpIpfs, _pfp);
+      const hash = `https://ipfs.io/ipfs/${CID.ipnft}/metadata.json`;
       setIpfsData(hash);
       console.log(hash);
       console.log("Data uploaded 🚀🚀");
-      setTimeout(addCreator(address, hash), 5000);
-      return true;
+      addCreator(address, hash);
     } catch (err) {
       console.log(err);
     }
@@ -99,16 +97,15 @@ export default function () {
       console.log("Adding the Creator Profile ... ");
       const tx = await Creator_contract.addCreator(Address, IPFSdata);
       await tx.wait();
-      console.log(tx.hash);
       console.log(tx);
       const ID = parseInt(tx.value._hex);
       console.log(ID);
       setId(ID);
       const link = `https://localhost:3000/profile/${ID}`;
+      console.log(link);
       setSharableLink(link);
       console.log("Creator Added and Profile added Successfully🚀🚀");
-      uploadContent(ID);
-      return true;
+      // uploadContent(ID);
     } catch (err) {
       console.log(err);
     }
@@ -151,15 +148,17 @@ export default function () {
 
   const handleSubmit = async () => {
     try {
-      setIsLoading(true);
-      /// uploading pfp to the IPFS
-      await uploadPfp();
-      // await uploadContent();
-      /// Uploading the updated data to IPFS
-      ///  Add creator to the Contract
-      /// Upload Content to IPFS
-      /// Addcontent to the Contract
-      setIsLoading(false);
+      if (isConnected) {
+        setIsLoading(true);
+        await uploadPfp();
+        /// Uploading the updated data to IPFS
+        ///  Add creator to the Contract
+        /// Upload Content to IPFS
+        /// Addcontent to the Contract
+        setIsLoading(false);
+      } else {
+        window.alert("Connect your wallet");
+      }
     } catch (err) {
       console.log(err);
     }
@@ -177,7 +176,10 @@ export default function () {
             <input
               className={styles.register_input}
               type="file"
-              onChange={(e) => setPfp(e.target.files[0])}
+              onChange={(e) => {
+                setPfp(e.target.files);
+                setPfpIpfs(e.target.files[0]);
+              }}
             />
             {/* {fileUrl && <img src={fileUrl} width="600px" />} */}
 
@@ -211,28 +213,31 @@ export default function () {
             onChange={(e) => setBio(e.target.value)}
           ></textarea>
 
-          <div className={styles.register_label}>
+          {/* <div className={styles.register_label}>
             Upload your work to showcase
-          </div>
-          <input
+          </div> */}
+          {/* <input
             className={styles.register_input}
             type="file"
             multiple
             onChange={(e) => setContent(e.target.files[0])}
-          />
+          /> */}
           {/* {fileUrl && <img src={fileUrl} width="600px" />} */}
           <hr />
-
+          <button className={styles.submit_btn} onClick={handleSubmit}>
+            Register
+          </button>
+          {/* 
           {isConnected ? (
             <button className={styles.submit_btn} onClick={handleSubmit}>
               Register
             </button>
           ) : (
-            <div className={styles.connect_btn}>            
+            <div className={styles.connect_btn}>
               <ConnectButton />
             </div>
             // <ConnectButton />
-          )}
+          )} */}
         </div>
       </div>
     </>

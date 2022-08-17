@@ -19,8 +19,9 @@ import RenderPost from "../../src/components/RenderPost";
 import CreatePost from "../../src/components/CreatePost";
 
 export default function Creator() {
-  const [data, setData] = useState([]);
-  const [did, setDid] = useState("");
+  const [data, setData] = useState({});
+  const [content, setContent] = useState([]);
+  const [ipfs, setIpfs] = useState("");
   const [address, setAddress] = useState("");
   const router = useRouter();
   const { id } = router.query;
@@ -38,34 +39,43 @@ export default function Creator() {
     contractInterface: Creator_Contract_ABI,
     signerOrProvider: provider,
   });
+
   useEffect(() => {
     if (id) {
-      fetchCreator();
+      fetchCreator(id);
     }
   }, [id]);
 
-  const fetchCreator = async (id) => {
+  const fetchCreator = async (_id) => {
     try {
-      console.log("Fetching data from the contract...");
-      const did = await contract.fetchDID(id);
-      await did.wait();
-      console.log("DID fetched from contract 🚀🚀");
-      console.log(did);
-      setDid(did);
-      const address = await contract.fetchAddress(id);
-      await address.wait();
-      console.log("Address fetched from contract 🚀🚀");
-      console.log(address);
-      setAddress(address);
-
-      console.log("Fetching Data from ceramic ...");
-      const data = await getRecord(did);
-      console.log("Data fetched from Ceramic Successfuly 🚀🚀");
-      console.log(data);
-      setData(data);
+      const creator = await Creator_contract.fetchCreators(_id);
+      console.log(creator);
+      const Userdata = await fetchIPFS(creator.userData);
+      console.log(Userdata);
+      const parsedData = {
+        Id: _id,
+        Name: Userdata.name,
+        Description: Userdata.description,
+        Image: Userdata.pfp,
+        Title: Userdata.title,
+      };
+      setAddress(creator.creatorAddress);
+      setIpfs(creator.userData);
+      console.log(parsedData);
+      setData(parsedData);
     } catch (err) {
       console.log(err);
     }
+  };
+
+  /// fetch the User data from the URL stored in the contract from IFPS
+  const fetchIPFS = async (_url) => {
+    console.log("fetching the files");
+    console.log(_url);
+    const response = await fetch(_url);
+    const data = await response.json();
+    return data;
+    /// {name , description(bio) , image (pfp), title } --> User profile
   };
 
   let dataObj = {

@@ -3,7 +3,7 @@ pragma solidity ^0.8.4;
 
 contract Content {
     // Mapping from CreatorId => content CID array
-    mapping(uint256 => string[]) content;
+    mapping(uint256 => string[]) public content;
 
     // Event emitted when
     event ContentAdded(uint256 _id, string _cid);
