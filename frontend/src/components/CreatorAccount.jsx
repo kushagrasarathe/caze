@@ -22,6 +22,7 @@ import {
   Subscription_Contract_Address,
 } from "../../utils/constants";
 import { GetData } from "../../src/components/GetData";
+import CreatePost from "./CreatePost";
 
 export default function creator() {
   const [isCreator, setIsCreator] = useState(false);
@@ -123,9 +124,9 @@ export default function creator() {
         <h1 className={styles.section_heading}>Creator Account Details</h1>
         <div className={`${styles.creator_section}`}>
           <div className={styles.account_details}>
-            <div className={styles.profile_image}>
+            {/* <div className={styles.profile_image}>
               <Image src={profile} />
-            </div>
+            </div> */}
             <div className={styles.wallet_details}>
               <h2>Wallet Details</h2>
               <h3>Address: </h3>
@@ -149,12 +150,13 @@ export default function creator() {
 
           <h2 className={styles.card_title}>Content</h2>
           <div className={styles.creator_content}>
-            <div className={styles.content}>
+            {/* <div className={styles.content}>
               <Image src={content1} />
             </div>
             <div className={styles.content}>
               <Image src={content2} />
-            </div>
+            </div> */}
+            <CreatePost />
           </div>
         </div>
       </div>

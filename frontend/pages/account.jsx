@@ -34,5 +34,12 @@ export default function account() {
     checkCreator();
   });
 
-  return <div>{isCreator ? <CreatorAccount /> : <UserAccount />}</div>;
+  return (
+    <>
+  <div>
+    {isCreator ? <CreatorAccount /> : <UserAccount />}
+  </div>
+    {/* <CreatorAccount /> */}
+    </>
+  )
 }

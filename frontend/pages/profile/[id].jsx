@@ -31,7 +31,7 @@ export default function Creator() {
     setNewPost(!newPost);
     // console.log(openForm);
   }
-  
+
   const provider = useProvider();
   const contract = useContract({
     addressOrName: Creator_Contract_address,
@@ -134,39 +134,35 @@ export default function Creator() {
         </div>
       </div>
 
-      <button
-        onClick={createNewPost}
-        className={styles.create_post_btn}
-      >
+      {/* <button onClick={createNewPost} className={styles.create_post_btn}>
         Create New Post
-      </button>
+      </button> */}
 
       <h1 className={styles.heading}>Published Posts</h1>
       {/* /// render content from the ipfs data.content , this will just throw a
       IPFS link */}
-      <div className={styles.container}>
-      <div className={newPost ? styles.create_post : styles.hide}>
+      {/* <div className={styles.container}>
+        <div className={newPost ? styles.create_post : styles.hide}>
           <CreatePost />
         </div>
-        <div className={styles.container}>
-          <div className={styles.post}>
-            <RenderPost
-              content={`Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores
+      </div> */}
+      <div className={styles.container}>
+        <div className={styles.post}>
+          <RenderPost
+            content={`Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores
           perferendis praesentium, doloribus fugit delectus itaque a ex porro
           perspiciatis! Ipsa iusto optio hic ad quaerat voluptas laudantium ea
           itaque! Aspernatur.`}
-            />
-          </div>
-          <div className={styles.post}>
-            <RenderPost
-              content={`Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores
-          perferendis praesentium, doloribus fugit delectus itaque a ex porro
-          perspiciatis! Ipsa iusto optio hic ad quaerat voluptas laudantium ea
-          itaque! Aspernatur.`}
-            />
-          </div>
+          />
         </div>
-        
+        <div className={styles.post}>
+          <RenderPost
+            content={`Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores
+          perferendis praesentium, doloribus fugit delectus itaque a ex porro
+          perspiciatis! Ipsa iusto optio hic ad quaerat voluptas laudantium ea
+          itaque! Aspernatur.`}
+          />
+        </div>
       </div>
       {/* <div id="profile-banner-image">
         <img
