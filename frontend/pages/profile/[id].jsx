@@ -22,7 +22,7 @@ import CreatePost from "../../src/components/CreatePost";
 
 export default function Creator() {
   const [data, setData] = useState({});
-  const [content, setContent] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [ipfs, setIpfs] = useState("");
   const [address, setAddress] = useState("");
   const router = useRouter();
@@ -36,6 +36,7 @@ export default function Creator() {
   }
 
   const provider = useProvider();
+
   const Creator_contract = useContract({
     addressOrName: Creator_Contract_address,
     contractInterface: Creator_Contract_ABI,
@@ -52,6 +53,7 @@ export default function Creator() {
   useEffect(() => {
     if (id) {
       fetchCreator(id);
+      fetchPosts(id);
     }
   }, [id]);
 
@@ -74,6 +76,40 @@ export default function Creator() {
       setData(parsedData);
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  /// fetch the User data from the URL stored in the contract from IFPS
+  const fetchPost = async (_url, _key) => {
+    console.log("fetching the files");
+    console.log(_url);
+    const response = await fetch(_url);
+    const data = await response.json();
+    const parsedData = {
+      Id: _key,
+      Description: data.Description,
+      Media: data.Content,
+    };
+    return parsedData;
+    /// {name , description(bio) , image (pfp), title } --> User profile
+  };
+
+  const fetchPosts = async (_id) => {
+    try {
+      console.log("Fetching the Content from the Content Contract ...");
+      const responses = await Content_contract.getContent(_id);
+      // console.log(responses);
+      /// response is a array of IPFS URI
+      const promises = [];
+      responses.map((response, key) => {
+        const postPromise = fetchPost(response, key);
+        promises.push(postPromise);
+      });
+      const _posts = await Promise.all(promises);
+      console.log(_posts);
+      setPosts(_posts);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -168,11 +204,23 @@ export default function Creator() {
         </div>
       </div> */}
       <div className={styles.container}>
-        <div className={styles.post}>
+        {posts ? (
+          posts.map((post) => {
+            return (
+              <div className={styles.post}>
+                {" "}
+                <RenderPost content={post.Description} media={post.Media} />
+              </div>
+            );
+          })
+        ) : (
+          <a>No posts present</a>
+        )}
+        {/* <div className={styles.post}>
           <RenderPost
             content={`Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores
           perferendis praesentium, doloribus fugit delectus itaque a ex porro
-          perspiciatis! Ipsa iusto optio hic ad quaerat voluptas laudantium ea
+          perspiciatis! Ipsa iusto optio hic ad quaerat voluptas laudanium ea
           itaque! Aspernatur.`}
           />
         </div>
@@ -183,7 +231,7 @@ export default function Creator() {
           perspiciatis! Ipsa iusto optio hic ad quaerat voluptas laudantium ea
           itaque! Aspernatur.`}
           />
-        </div>
+        </div> */}
       </div>
       {/* <div id="profile-banner-image">
         <img
