@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../../styles/Home.module.css";
 import Image from "next/image";
 import creator_nft from "../../src/assets/creator-nft.png";
@@ -21,8 +21,8 @@ import {
   Subscription_Contract_ABI,
   Subscription_Contract_Address,
 } from "../../utils/constants";
-import { GetData } from "../../src/components/GetData";
 import CreatePost from "./CreatePost";
+import ethers, { utils } from "ethers";
 
 export default function creator() {
   const [isCreator, setIsCreator] = useState(false);
@@ -68,7 +68,7 @@ export default function creator() {
     try {
       console.log("Fetching Creator Id");
       const response = await Creator_contract.getId(address);
-      const id = parseInt(id._hex);
+      const id = parseInt(response._hex);
       // separate the id value from value
       console.log(id);
       setId(id);
@@ -107,17 +107,24 @@ export default function creator() {
     }
   };
 
-  const Withdraw = async (_id) => {
+  const Withdraw = async () => {
     try {
       /// accepts the ID of the Creator to be able to
       console.log("Withdrawing balance from the contract...");
-      const tx = await Subscription_contract.withdraw(_id);
+      const tx = await Subscription_contract.withdraw(id);
       await tx.wait();
       console.log("Amount Withdrawn to the creator account");
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    checkCreator();
+    if (isCreator) {
+      fetchCreator();
+    }
+  }, [isCreator]);
 
   return (
     <>
@@ -131,13 +138,18 @@ export default function creator() {
             <div className={styles.wallet_details}>
               <h2>Wallet Details</h2>
               <h3>Address: </h3>
-              <p className={styles.address}>
-                0xA25c5bE1324764573dE0a14ABFe0279B4291adfA
+              <p className={styles.address}>{creator.creatorAddress}</p>
+              <h3>Balance:</h3>
+              <p>
+                {creator.balance
+                  ? utils.formatEther(parseInt(creator.balance._hex))
+                  : 0}{" "}
+                MATIC
               </p>
-              <h3>Balance: </h3>
-              <p>10 MATIC</p>
               <div>
-                <button className={styles.explore_btn}>Withdraw</button>
+                <button onClick={Withdraw} className={styles.explore_btn}>
+                  Withdraw
+                </button>
               </div>
             </div>
             <div className={styles.user_subscription}>
