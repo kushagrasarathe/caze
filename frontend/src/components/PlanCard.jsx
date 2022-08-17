@@ -19,7 +19,7 @@ export default function PlanCard(props) {
     } else if (id == 2) {
       setPlan(PlatinumPLan);
     }
-  }, []);
+  }, [props.creatorId]);
 
   return (
     <>

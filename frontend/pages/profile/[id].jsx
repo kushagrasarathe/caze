@@ -34,7 +34,7 @@ export default function Creator() {
   }
 
   const provider = useProvider();
-  const contract = useContract({
+  const Creator_contract = useContract({
     addressOrName: Creator_Contract_address,
     contractInterface: Creator_Contract_ABI,
     signerOrProvider: provider,
@@ -86,6 +86,8 @@ export default function Creator() {
     content: profile,
   };
 
+  /// error in rendering the image with data.image , check and solve
+
   return (
     <div className={styles.main}>
       <div className={styles.user}>
@@ -97,16 +99,16 @@ export default function Creator() {
         </div>
       </div>
       <div className={styles.textContent}>
-        <h1>{data.name}</h1>
-        <p className={styles.cardText}>{dataObj.title}</p>
-        <p className={styles.about}>{dataObj.bio}</p>
+        <h1>{data.Name}</h1>
+        <p className={styles.cardText}>{data.Title}</p>
+        <p className={styles.about}>{data.Description}</p>
       </div>
       <h1 className={styles.heading}>Subscribe</h1>
       <div className={styles.container}>
         <div>
           <PlanCard
             planId={"0"}
-            creatorAddress={address}
+            creatorId={data.Id}
             month={"1 Month"}
             name={"Silver"}
             amount={"0.2 Matic "}
@@ -119,7 +121,7 @@ export default function Creator() {
         <div>
           <PlanCard
             planId={"1"}
-            creatorAddress={address}
+            creatorId={data.Id}
             month={"3 Months"}
             name={"Gold"}
             amount={"0.5 Matic "}
@@ -132,7 +134,7 @@ export default function Creator() {
         <div>
           <PlanCard
             planId={"2"}
-            creatorAddress={address}
+            creatorId={data.Id}
             month={"6 Months"}
             name={"Premium"}
             amount={"1 Matic "}
