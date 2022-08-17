@@ -145,6 +145,9 @@ export default function Creator() {
       {/* /// render content from the ipfs data.content , this will just throw a
       IPFS link */}
       <div className={styles.container}>
+      <div className={newPost ? styles.create_post : styles.hide}>
+          <CreatePost />
+        </div>
         <div className={styles.container}>
           <div className={styles.post}>
             <RenderPost
@@ -163,9 +166,7 @@ export default function Creator() {
             />
           </div>
         </div>
-        <div className={newPost ? styles.create_post : styles.hide}>
-          <CreatePost />
-        </div>
+        
       </div>
       {/* <div id="profile-banner-image">
         <img
