@@ -14,8 +14,8 @@ import { useContract, useProvider } from "wagmi";
 import { useState, useEffect } from "react";
 
 export default function Explore() {
-  const [noId, SetNoId] = useState(0);
-  const [creator, SetCreator] = useState([]);
+  const [noId, setNoId] = useState(0);
+  const [creators, setCreators] = useState([]);
   const provider = useProvider();
 
   const Creator_contract = useContract({
@@ -25,25 +25,29 @@ export default function Explore() {
   });
 
   /// fetch the data from the CID from IFPS for both type of datas
-  const fetchIPFS = async (_cid) => {
+  const fetchIPFS = async (_url) => {
     console.log("fetching the files");
-    // const _cid = "bafkreifxtpdf5lcmkqjqmpe4wjgfl4rbov23ryn5merejridxk27pfzufq";
-    const data = await GetData(_cid);
-    console.log(data);
+    console.log(_url);
+    const response = await fetch(_url);
+    const data = await response.json();
     return data;
-    /// get the json and use that json for further processing of the data
-    /// {name , description(bio) , image (pfp), }
+    /// {name , description(bio) , image (pfp), title } --> User profile
   };
-
-  /// for every ID
-  const fetchCreator = async (id) => {
+  const fetchCreator = async (_id) => {
     try {
-      const data = await Creator_contract.fetchURI(id);
-      console.log("Data Uri fetched");
-      const response = await fetchIPFS(data.value);
-      return response;
-      /// render this response in the card below to show the data
-      return <ProfileCard image={data.pfp} name={data.Name} intro={data.bio} />;
+      const creator = await Creator_contract.fetchCreators(_id);
+      console.log(creator);
+      const Userdata = await fetchIPFS(creator.userData);
+      console.log(Userdata);
+      const parsedData = {
+        Id: _id,
+        Name: Userdata.name,
+        Description: Userdata.description,
+        Image: Userdata.pfp,
+        Title: Userdata.title,
+      };
+      console.log(parsedData);
+      return parsedData;
     } catch (err) {
       console.log(err);
     }
@@ -51,20 +55,16 @@ export default function Explore() {
 
   const fetchCreators = async () => {
     try {
-      const data = [];
       const noId = await fetchNoId();
       console.log("Fetching...");
-      //// we need to run a loop from 0 --- > id , that will fectch the data for every creator, fetchCreators is called in useEffect
-      // you just need to render all the data in seperate cards
-      // return(
-      // )
-
-      /// render this respone , store in the array
-      for (let id = 0; id <= noId; id++) {
-        const _creator = await fetchCreator(id);
-        data.push(_creator);
+      const promises = [];
+      for (let id = 0; id < noId; id++) {
+        const creatorPromise = fetchCreator(id);
+        promises.push(creatorPromise);
       }
-      SetCreator(data);
+      const data = await Promise.all(promises);
+      console.log(data);
+      setCreators(data);
       /// render this data array to show all the data on the screen
     } catch (error) {
       console.log(error);
@@ -74,10 +74,11 @@ export default function Explore() {
   const fetchNoId = async () => {
     try {
       console.log("fetching the Ids");
-      const id = await contract.id();
+      const data = await Creator_contract.id();
+      const id = parseInt(data._hex);
       console.log(id);
       /// parse the ID character from the id value and pass it to the user
-      SetNoId(id);
+      setNoId(id);
       return id;
     } catch (err) {
       console.log(err);
@@ -88,12 +89,27 @@ export default function Explore() {
     fetchCreators();
   }, []);
 
+  /// set the right image tage with creator.Image
   return (
     <>
       <div className={styles.explore}>
         <h1 className={styles.section_heading}>Creators</h1>
         <div className={styles.explore_cards}>
-          <ProfileCard
+          {creators ? (
+            creators.map((creator) => {
+              return (
+                <ProfileCard
+                  image={kushagra}
+                  name={creator.Name}
+                  intro={creator.Description}
+                  id={creator.Id}
+                />
+              );
+            })
+          ) : (
+            <a>No Creators found</a>
+          )}
+          {/* <ProfileCard
             image={kushagra}
             name={"Kushagra Sarathe"}
             intro={
@@ -106,7 +122,7 @@ export default function Explore() {
             intro={
               "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate corporis placeat earum at ex illo eos sint a optio natus, saepe doloremque sapiente dolorem sunt, voluptas perspiciatis iure repellendus facilis."
             }
-          />
+          /> */}
         </div>
       </div>
     </>
