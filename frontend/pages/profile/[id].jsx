@@ -11,6 +11,8 @@ import PlanCard from "../../src/components/PlanCard";
 import {
   Creator_Contract_ABI,
   Creator_Contract_address,
+  Content_ABI,
+  Content_Contract_address,
 } from "../../utils/constants";
 import { useContract, useProvider } from "wagmi";
 // import { getRecord } from "../../src/components/ceramic";
@@ -37,6 +39,13 @@ export default function Creator() {
   const Creator_contract = useContract({
     addressOrName: Creator_Contract_address,
     contractInterface: Creator_Contract_ABI,
+    signerOrProvider: provider,
+  });
+
+  // fetch the posts from the contract
+  const Content_contract = useContract({
+    addressOrName: Content_Contract_address,
+    contractInterface: Content_ABI,
     signerOrProvider: provider,
   });
 

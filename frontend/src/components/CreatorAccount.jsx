@@ -67,11 +67,11 @@ export default function creator() {
   const fetchCreator = async () => {
     try {
       console.log("Fetching Creator Id");
-      const id = await Creator_contract.getId(address);
-
+      const response = await Creator_contract.getId(address);
+      const id = parseInt(id._hex);
       // separate the id value from value
       console.log(id);
-
+      setId(id);
       console.log("Fetching Creators details");
       const data = await Creator_contract.fetchCreators(id);
       console.log(data);
@@ -100,6 +100,7 @@ export default function creator() {
       console.log("Fetching content for the creator");
       const response = await Content_contract.getContent(_id);
       /// we get the array of IPFS strings , need to render the data from that link on the page
+      const content = [];
       console.log("Data fetched");
     } catch (error) {
       console.log(error);
@@ -156,7 +157,7 @@ export default function creator() {
             <div className={styles.content}>
               <Image src={content2} />
             </div> */}
-            <CreatePost />
+            <CreatePost Id={id} />
           </div>
         </div>
       </div>
