@@ -28,10 +28,10 @@ contract Creators is Ownable {
     // Content is stored in another contract Content.sol
 
     // mapping from CreatorID to creator Struct
-    mapping(uint256 => creator) creators;
-    mapping(address => user) _user;
+    mapping(uint256 => creator) public creators;
+    mapping(address => user) public _user;
 
-    uint256 id = 0;
+    uint256 public id = 0;
 
     event creatorAdded(uint256 id, address creator, string user);
 

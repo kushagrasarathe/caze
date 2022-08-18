@@ -2,15 +2,14 @@ import React from "react";
 import styles from "./Post.module.css";
 import Image from "next/image";
 
-export default function RenderPost( props ) {
+export default function RenderPost(props) {
+  /// render Image of the post from props.media
   return (
     <>
       <div className={styles.render_post}>
         <h2>Post #1</h2>
         <hr className={styles.line} />
-        <p>
-          {props.content}
-        </p>
+        <p>{props.content}</p>
         <img
           className={styles.render_media}
           //   height={"400px"}

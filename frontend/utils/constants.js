@@ -31,7 +31,13 @@ export const PlatinumPLan = {
 export const Owner_address = "0xe22eCBbA8fB9C0124eeCb6AfE0bf6A487424989f";
 
 export const Content_Contract_address =
-  "0x99FBB7e6F8789AE2eca6a07bcfC2e94f1D2376cA";
+  "0xD6D1546419B94c085c7caC8D8BE90ff85f85c527";
+export const Subscription_Contract_Address =
+  "0x33e5DeD17F819ad57DB865c77e325F743016A602";
+export const Creator_Contract_address =
+  "0x60140FfDF1296f8534cC97140b6D3317f077db2F";
+export const NFT_Address = "0xF10100444c99d837c2524Ab655051f8A69eF78a1";
+
 export const Content_ABI = [
   {
     anonymous: false,
@@ -74,6 +80,30 @@ export const Content_ABI = [
     inputs: [
       {
         internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "content",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
         name: "_creatorID",
         type: "uint256",
       },
@@ -91,7 +121,6 @@ export const Content_ABI = [
   },
 ];
 
-export const NFT_Address = "0xFFbF06f950De26fCa1175B82C122f4B9f27346E5";
 export const NFT_ABI = [
   {
     inputs: [
@@ -605,8 +634,6 @@ export const NFT_ABI = [
   },
 ];
 
-export const Creator_Contract_address =
-  "0xdbCEB130F4e80d828AF356ddF9F97B07BFd4B29E";
 export const Creator_Contract_ABI = [
   {
     inputs: [
@@ -662,6 +689,30 @@ export const Creator_Contract_ABI = [
     ],
     name: "creatorAdded",
     type: "event",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "_user",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "_creatorId",
+        type: "uint256",
+      },
+      {
+        internalType: "bool",
+        name: "isCreator",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
   },
   {
     inputs: [
@@ -740,6 +791,59 @@ export const Creator_Contract_ABI = [
     name: "changeData",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
+    ],
+    name: "checkStatus",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "creators",
+    outputs: [
+      {
+        internalType: "address",
+        name: "creatorAddress",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "userData",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "balance",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "subscribers",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -865,6 +969,38 @@ export const Creator_Contract_ABI = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
+    ],
+    name: "getId",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "id",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "owner",
     outputs: [
@@ -912,8 +1048,6 @@ export const Creator_Contract_ABI = [
   },
 ];
 
-export const Subscription_Contract_Address =
-  "0x53FE62421800879B0f86bff4BC022667124d02F6";
 export const Subscription_Contract_ABI = [
   {
     inputs: [
@@ -1137,6 +1271,11 @@ export const Subscription_Contract_ABI = [
             name: "nextPayment",
             type: "uint256",
           },
+          {
+            internalType: "bool",
+            name: "subscriptionOn",
+            type: "bool",
+          },
         ],
         internalType: "struct SubscriptionPlan.Subscription",
         name: "",
@@ -1282,6 +1421,11 @@ export const Subscription_Contract_ABI = [
         internalType: "uint256",
         name: "nextPayment",
         type: "uint256",
+      },
+      {
+        internalType: "bool",
+        name: "subscriptionOn",
+        type: "bool",
       },
     ],
     stateMutability: "view",

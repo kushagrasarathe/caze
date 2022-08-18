@@ -11,6 +11,8 @@ import PlanCard from "../../src/components/PlanCard";
 import {
   Creator_Contract_ABI,
   Creator_Contract_address,
+  Content_ABI,
+  Content_Contract_address,
 } from "../../utils/constants";
 import { useContract, useProvider } from "wagmi";
 // import { getRecord } from "../../src/components/ceramic";
@@ -19,8 +21,9 @@ import RenderPost from "../../src/components/RenderPost";
 import CreatePost from "../../src/components/CreatePost";
 
 export default function Creator() {
-  const [data, setData] = useState([]);
-  const [did, setDid] = useState("");
+  const [data, setData] = useState({});
+  const [posts, setPosts] = useState([]);
+  const [ipfs, setIpfs] = useState("");
   const [address, setAddress] = useState("");
   const router = useRouter();
   const { id } = router.query;
@@ -33,39 +36,91 @@ export default function Creator() {
   }
 
   const provider = useProvider();
-  const contract = useContract({
+
+  const Creator_contract = useContract({
     addressOrName: Creator_Contract_address,
     contractInterface: Creator_Contract_ABI,
     signerOrProvider: provider,
   });
+
+  // fetch the posts from the contract
+  const Content_contract = useContract({
+    addressOrName: Content_Contract_address,
+    contractInterface: Content_ABI,
+    signerOrProvider: provider,
+  });
+
   useEffect(() => {
     if (id) {
-      fetchCreator();
+      fetchCreator(id);
+      fetchPosts(id);
     }
   }, [id]);
 
-  const fetchCreator = async (id) => {
+  const fetchCreator = async (_id) => {
     try {
-      console.log("Fetching data from the contract...");
-      const did = await contract.fetchDID(id);
-      await did.wait();
-      console.log("DID fetched from contract 🚀🚀");
-      console.log(did);
-      setDid(did);
-      const address = await contract.fetchAddress(id);
-      await address.wait();
-      console.log("Address fetched from contract 🚀🚀");
-      console.log(address);
-      setAddress(address);
-
-      console.log("Fetching Data from ceramic ...");
-      const data = await getRecord(did);
-      console.log("Data fetched from Ceramic Successfuly 🚀🚀");
-      console.log(data);
-      setData(data);
+      const creator = await Creator_contract.fetchCreators(_id);
+      console.log(creator);
+      const Userdata = await fetchIPFS(creator.userData);
+      console.log(Userdata);
+      const parsedData = {
+        Id: _id,
+        Name: Userdata.name,
+        Description: Userdata.description,
+        Image: Userdata.pfp,
+        Title: Userdata.title,
+      };
+      setAddress(creator.creatorAddress);
+      setIpfs(creator.userData);
+      console.log(parsedData);
+      setData(parsedData);
     } catch (err) {
       console.log(err);
     }
+  };
+
+  /// fetch the User data from the URL stored in the contract from IFPS
+  const fetchPost = async (_url, _key) => {
+    console.log("fetching the files");
+    console.log(_url);
+    const response = await fetch(_url);
+    const data = await response.json();
+    const parsedData = {
+      Id: _key,
+      Description: data.Description,
+      Media: data.Content,
+    };
+    return parsedData;
+    /// {name , description(bio) , image (pfp), title } --> User profile
+  };
+
+  const fetchPosts = async (_id) => {
+    try {
+      console.log("Fetching the Content from the Content Contract ...");
+      const responses = await Content_contract.getContent(_id);
+      // console.log(responses);
+      /// response is a array of IPFS URI
+      const promises = [];
+      responses.map((response, key) => {
+        const postPromise = fetchPost(response, key);
+        promises.push(postPromise);
+      });
+      const _posts = await Promise.all(promises);
+      console.log(_posts);
+      setPosts(_posts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  /// fetch the User data from the URL stored in the contract from IFPS
+  const fetchIPFS = async (_url) => {
+    console.log("fetching the files");
+    console.log(_url);
+    const response = await fetch(_url);
+    const data = await response.json();
+    return data;
+    /// {name , description(bio) , image (pfp), title } --> User profile
   };
 
   let dataObj = {
@@ -75,6 +130,8 @@ export default function Creator() {
     bio: "Lorem ipsum had a funny talk about rendering data. Both tried so hard to finish the project and submit a functional project in hackathon. ",
     content: profile,
   };
+
+  /// error in rendering the image with data.image , check and solve
 
   return (
     <div className={styles.main}>
@@ -87,16 +144,16 @@ export default function Creator() {
         </div>
       </div>
       <div className={styles.textContent}>
-        <h1>{data.name}</h1>
-        <p className={styles.cardText}>{dataObj.title}</p>
-        <p className={styles.about}>{dataObj.bio}</p>
+        <h1>{data.Name}</h1>
+        <p className={styles.cardText}>{data.Title}</p>
+        <p className={styles.about}>{data.Description}</p>
       </div>
       <h1 className={styles.heading}>Subscribe</h1>
       <div className={styles.container}>
         <div>
           <PlanCard
             planId={"0"}
-            creatorAddress={address}
+            creatorId={data.Id}
             month={"1 Month"}
             name={"Silver"}
             amount={"0.2 Matic "}
@@ -109,7 +166,7 @@ export default function Creator() {
         <div>
           <PlanCard
             planId={"1"}
-            creatorAddress={address}
+            creatorId={data.Id}
             month={"3 Months"}
             name={"Gold"}
             amount={"0.5 Matic "}
@@ -122,7 +179,7 @@ export default function Creator() {
         <div>
           <PlanCard
             planId={"2"}
-            creatorAddress={address}
+            creatorId={data.Id}
             month={"6 Months"}
             name={"Platinum"}
             amount={"1 Matic "}
@@ -147,11 +204,23 @@ export default function Creator() {
         </div>
       </div> */}
       <div className={styles.container}>
-        <div className={styles.post}>
+        {posts ? (
+          posts.map((post) => {
+            return (
+              <div className={styles.post}>
+                {" "}
+                <RenderPost content={post.Description} media={post.Media} />
+              </div>
+            );
+          })
+        ) : (
+          <a>No posts present</a>
+        )}
+        {/* <div className={styles.post}>
           <RenderPost
             content={`Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores
           perferendis praesentium, doloribus fugit delectus itaque a ex porro
-          perspiciatis! Ipsa iusto optio hic ad quaerat voluptas laudantium ea
+          perspiciatis! Ipsa iusto optio hic ad quaerat voluptas laudanium ea
           itaque! Aspernatur.`}
           />
         </div>
@@ -162,7 +231,7 @@ export default function Creator() {
           perspiciatis! Ipsa iusto optio hic ad quaerat voluptas laudantium ea
           itaque! Aspernatur.`}
           />
-        </div>
+        </div> */}
       </div>
       {/* <div id="profile-banner-image">
         <img

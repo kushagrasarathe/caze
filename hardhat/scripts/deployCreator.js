@@ -1,7 +1,7 @@
 const hre = require("hardhat");
 
 async function main() {
-  const NFT_CONTRACT_ADDRESS = "0xFFbF06f950De26fCa1175B82C122f4B9f27346E5";
+  const NFT_CONTRACT_ADDRESS = "0xF10100444c99d837c2524Ab655051f8A69eF78a1";
   const CREATOR = await hre.ethers.getContractFactory("Creators");
   const creator = await CREATOR.deploy(NFT_CONTRACT_ADDRESS);
 

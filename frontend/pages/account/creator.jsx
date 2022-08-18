@@ -70,12 +70,55 @@ export default function creator() {
   };
 
   useEffect(() => {
-    fetchIPFS();
-  });
+    checkCreator();
+  }, []);
 
   return (
     <>
-      <div className={`${styles.explore}`}>
+      {isCreator ? (
+        <div className={`${styles.explore}`}>
+          <h1 className={styles.section_heading}>Creator Account Details</h1>
+          <div className={`${styles.creator_section}`}>
+            <div className={styles.account_details}>
+              <div className={styles.profile_image}>
+                <Image src={profile} />
+              </div>
+              <div className={styles.wallet_details}>
+                <h2>Wallet Details</h2>
+                <h3>Address: </h3>
+                <p className={styles.address}>
+                  0xA25c5bE1324764573dE0a14ABFe0279B4291adfA
+                </p>
+                <h3>Balance: </h3>
+                <p>10 MATIC</p>
+                <div>
+                  <button className={styles.explore_btn}>Withdraw</button>
+                </div>
+              </div>
+              <div className={styles.user_subscription}>
+                {/* <h2 className={styles.card_title}>Creator NFT</h2> */}
+                <div className={styles.creator_nft}>
+                  <Image src={creator_nft} />
+                </div>
+              </div>
+            </div>
+            {/* <hr /> */}
+
+            <h2 className={styles.card_title}>Content</h2>
+            <div className={styles.creator_content}>
+              <div className={styles.content}>
+                <Image src={content1} />
+              </div>
+              <div className={styles.content}>
+                <Image src={content2} />
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <a>Not a Creator</a>
+      )}
+      {/* <div className={`${styles.explore}`}>
         <h1 className={styles.section_heading}>Creator Account Details</h1>
         <div className={`${styles.creator_section}`}>
           <div className={styles.account_details}>
@@ -95,13 +138,13 @@ export default function creator() {
               </div>
             </div>
             <div className={styles.user_subscription}>
-              {/* <h2 className={styles.card_title}>Creator NFT</h2> */}
+              <h2 className={styles.card_title}>Creator NFT</h2>
               <div className={styles.creator_nft}>
                 <Image src={creator_nft} />
               </div>
             </div>
           </div>
-          {/* <hr /> */}
+          <hr />
 
           <h2 className={styles.card_title}>Content</h2>
           <div className={styles.creator_content}>
@@ -113,7 +156,7 @@ export default function creator() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

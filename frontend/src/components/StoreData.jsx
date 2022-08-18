@@ -2,12 +2,12 @@ import { NFTStorage } from "nft.storage";
 import { NFT_STORAGE_API_KEY } from "../../constants";
 
 /// used NFT.storage to prepare the metadata foasr the NFT
-export const StoreData = async (Name, Bio, Title, PfpIPFS, Pfp) => {
+export const StoreData = async (Name, Bio, Title, PfpIPFS, _pfp) => {
   // const nftstorage_key = process.env.NFT_STORAGE_API_KEY;
 
   console.log("Preparing Metadata ....");
   const nft = {
-    image: Pfp,
+    image: _pfp,
     name: Name,
     description: Bio,
     title: Title,

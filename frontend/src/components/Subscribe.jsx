@@ -15,7 +15,7 @@ import { useState } from "react";
 const Subscribe = (props) => {
   // const [amount, setAmount] = useState("");
   const [planId, setPlanId] = useState(0);
-  const [creatorId, setCreatorId] = useState("");
+  const [creator, setCreator] = useState("");
 
   const provider = useProvider();
   const { data: signer } = useSigner();
@@ -28,21 +28,21 @@ const Subscribe = (props) => {
   });
   const subscribe = async () => {
     console.log(
-      `Subscribing to the creator: ${creatorId} for the planId :${planId} \n`
+      `Subscribing to the creator: ${creator} for the planId :${planId} \n`
     );
     console.log("Intiating the Transaction 🔥🔥");
     if (planId == 0) {
-      const tx = await Subscription_contract.subscribe(creatorId, planId, {
+      const tx = await Subscription_contract.subscribe(creator, planId, {
         value: ethers.utils.parseEther("0.2"),
       });
       await tx.wait();
     } else if (planId == 1) {
-      const tx = await Subscription_contract.subscribe(creatorId, planId, {
+      const tx = await Subscription_contract.subscribe(creator, planId, {
         value: ethers.utils.parseEther("0.5"),
       });
       await tx.wait();
     } else if (planId == 2) {
-      const tx = await Subscription_contract.subscribe(creatorId, planId, {
+      const tx = await Subscription_contract.subscribe(creator, planId, {
         value: ethers.utils.parseEther("1"),
       });
       await tx.wait();
@@ -59,8 +59,9 @@ const Subscribe = (props) => {
 
   useEffect(() => {
     setPlanId(props.planId);
-    setCreatorId(props.creatorId);
-  });
+    console.log(props.creatorId);
+    setCreator(props.creatorId);
+  }, [props.creatorId]);
 
   return (
     <button className={styles.btn} onClick={subscribe}>

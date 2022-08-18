@@ -36,10 +36,8 @@ export default function account() {
 
   return (
     <>
-  <div>
-    {isCreator ? <CreatorAccount /> : <UserAccount />}
-  </div>
-    {/* <CreatorAccount /> */}
+      <div>{isCreator ? <CreatorAccount /> : <UserAccount />}</div>
+      {/* <CreatorAccount /> */}
     </>
-  )
+  );
 }
