@@ -24,7 +24,7 @@ import {
 import CreatePost from "./CreatePost";
 import ethers, { utils } from "ethers";
 
-export default function creator() {
+export default function Creator() {
   const [isCreator, setIsCreator] = useState(false);
   const [creator, setCreator] = useState({});
   const [id, setId] = useState(0);

@@ -207,7 +207,7 @@ export default function Creator() {
         {posts ? (
           posts.map((post) => {
             return (
-              <div className={styles.post}>
+              <div className={styles.post} key={post.Id}>
                 {" "}
                 <RenderPost content={post.Description} media={post.Media} />
               </div>

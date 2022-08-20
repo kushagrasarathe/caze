@@ -21,7 +21,7 @@ import {
 import { StoreData } from "../src/components/StoreData";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
-export default function () {
+export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
   /// to set the Content Uploaded
   // const [content, setContent] = useState([]);

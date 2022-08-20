@@ -8,7 +8,7 @@ import {
 } from "wagmi";
 import { NFT_ABI, NFT_Address } from "../../utils/constants";
 
-const checkUser = () => {
+const CheckUser = () => {
   const [isSilver, setIsSilver] = useState(false);
   const [isGold, setIsGold] = useState(false);
   const [isPlatinum, setIsPlatinum] = useState(false);

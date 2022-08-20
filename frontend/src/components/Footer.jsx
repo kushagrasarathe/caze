@@ -13,10 +13,11 @@ export default function Footer() {
         <a
           href="https://github.com/shouryam-kumar/hackathon-project"
           target="_blank"
+          rel="noreferrer"
         >
           <Image src={github} />
         </a>
-        <a href="https://twitter.com/caze_xyz" target="_blank">
+        <a href="https://twitter.com/caze_xyz" target="_blank" rel="noreferrer">
           <Image src={twitter} />
         </a>
       </div>

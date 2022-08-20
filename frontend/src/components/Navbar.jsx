@@ -68,7 +68,11 @@ export default function Navbar() {
           </li>
 
           <li className={styles.hide}>
-            <a href="https://twitter.com/caze_xyz" target="_blank">
+            <a
+              href="https://twitter.com/caze_xyz"
+              target="_blank"
+              rel="noreferrer"
+            >
               <Image src={twitter} />
             </a>
           </li>
@@ -77,13 +81,11 @@ export default function Navbar() {
               <ConnectButton />
             </span>
           </li>
-
-          
         </ul>
       </div>
 
       <div className={`${styles.show} ${styles.navRight}`}>
-        <a href="https://twitter.com/caze_xyz" target="_blank">
+        <a href="https://twitter.com/caze_xyz" target="_blank" rel="noreferrer">
           <Image src={twitter} />
         </a>
         <span className={`${styles.show} ${styles.connect_btn}`}>

@@ -7,7 +7,7 @@ import {
   Creator_Contract_ABI,
 } from "../utils/constants";
 
-export default function account() {
+export default function Account() {
   const [isCreator, setIsCreator] = useState(false);
   const { address } = useAccount();
   const { data: signer } = useSigner();

@@ -103,6 +103,7 @@ export default function Explore() {
                   name={creator.Name}
                   intro={creator.Description}
                   id={creator.Id}
+                  key={creator.Id}
                 />
               );
             })

@@ -6,7 +6,7 @@ import content1 from "../../src/assets/gold.png";
 import content2 from "../../src/assets/silver.png";
 import profile from "../../src/assets/profile.png";
 import { constants } from "ethers";
-import { GetData } from "../../src/components/GetData";
+import { GetData } from "../components/GetData";
 import { useContract, useSigner, useProvider, useAccount } from "wagmi";
 import {
   Creator_Contract_address,
@@ -15,11 +15,12 @@ import {
   Content_Contract_address,
 } from "../../utils/constants";
 
-export default function creator() {
+export default function Creator() {
   const [isCreator, setIsCreator] = useState(false);
   const [creator, setCreator] = useState({});
   const [data, setData] = useState({});
   const [id, setId] = useState(0);
+
   const { address } = useAccount();
   const { data: signer } = useSigner();
   const provider = useProvider();
