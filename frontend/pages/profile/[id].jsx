@@ -181,7 +181,7 @@ export default function Creator() {
             planId={"2"}
             creatorId={data.Id}
             month={"6 Months"}
-            name={"Premium"}
+            name={"Platinum"}
             amount={"1 Matic "}
             perks1={"Gold Plan Benifits"}
             perks2={"Private Chat Access"}
