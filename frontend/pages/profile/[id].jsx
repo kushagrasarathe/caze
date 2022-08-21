@@ -157,7 +157,7 @@ export default function Creator() {
             <div className={styles.profile}>
               <Image
                 className={styles.profileimg}
-                src={data ? data.Image : dataObj.image}
+                src={data.Image ? data.Image : dataObj.image}
                 alt="creator profile picture"
                 width={200}
                 height={200}

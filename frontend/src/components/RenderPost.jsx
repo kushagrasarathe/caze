@@ -14,7 +14,7 @@ export default function RenderPost(props) {
           className={styles.render_media}
           //   height={"400px"}
           //   width={"auto"}
-          src="https://imagizer.imageshack.com/img921/9628/VIaL8H.jpg"
+          src={props.media}
           alt="Banner image"
         />
         {/* <button className={styles.create_post_btn} type="button"> */}

@@ -31,7 +31,7 @@ export const PlatinumPLan = {
 export const Owner_address = "0xe22eCBbA8fB9C0124eeCb6AfE0bf6A487424989f";
 
 export const Content_Contract_address =
-  "0x33e5DeD17F819ad57DB865c77e325F743016A602";
+  "0x57bF265206dC40Da79EEE8Ca8EA657c463f139D9";
 export const Subscription_Contract_Address =
   "0x009eedD5D0aD4D1239eAcF36be7dbcf464bA0129";
 export const Creator_Contract_address =
