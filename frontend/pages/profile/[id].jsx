@@ -106,9 +106,10 @@ export default function Creator() {
   const fetchPosts = async (_id) => {
     try {
       setIsLoading(true);
+
       console.log("Fetching the Content from the Content Contract ...");
       const responses = await Content_contract.getContent(_id);
-      // console.log(responses);
+      console.log(responses);
       /// response is a array of IPFS URI
       const promises = [];
       responses.map((response, key) => {

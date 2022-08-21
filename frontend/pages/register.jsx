@@ -131,6 +131,7 @@ export default function Register() {
   const addCreator = async (Address, IPFSdata) => {
     try {
       setIsLoading(true);
+      setMessage("Adding creator profile to contract.....");
       console.log("Adding the Creator Profile ... ");
       const tx = await Creator_contract.addCreator(Address, IPFSdata);
       await tx.wait();
