@@ -9,6 +9,9 @@ import {
   Creator_Contract_address,
 } from "../utils/constants";
 import { useContract, useProvider } from "wagmi";
+
+import Loading from "../src/components/Loader";
+
 // import { useContract, useProvider } from "wagmi";
 // import { getRecord } from "../src/components/ceramic";
 import { useState, useEffect } from "react";
@@ -17,6 +20,9 @@ export default function Explore() {
   const [noId, setNoId] = useState(0);
   const [creators, setCreators] = useState([]);
   const provider = useProvider();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   const Creator_contract = useContract({
     addressOrName: Creator_Contract_address,
@@ -55,6 +61,8 @@ export default function Explore() {
 
   const fetchCreators = async () => {
     try {
+      setIsLoading(true);
+      setMessage("Fetching from contract and IPFS...");
       const noId = await fetchNoId();
       console.log("Fetching...");
       const promises = [];
@@ -65,9 +73,11 @@ export default function Explore() {
       const data = await Promise.all(promises);
       console.log(data);
       setCreators(data);
+      setIsLoading(false);
       /// render this data array to show all the data on the screen
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -92,25 +102,26 @@ export default function Explore() {
   /// set the right image tage with creator.Image
   return (
     <>
-      <div className={styles.explore}>
-        <h1 className={styles.section_heading}>Creators</h1>
-        <div className={styles.explore_cards}>
-          {creators ? (
-            creators.map((creator) => {
-              return (
-                <ProfileCard
-                  image={kushagra}
-                  name={creator.Name}
-                  intro={creator.Description}
-                  id={creator.Id}
-                  key={creator.Id}
-                />
-              );
-            })
-          ) : (
-            <a>No Creators found</a>
-          )}
-          {/* <ProfileCard
+      {!isLoading ? (
+        <div className={styles.explore}>
+          <h1 className={styles.section_heading}>Creators</h1>
+          <div className={styles.explore_cards}>
+            {creators ? (
+              creators.map((creator) => {
+                return (
+                  <ProfileCard
+                    image={kushagra}
+                    name={creator.Name}
+                    intro={creator.Description}
+                    id={creator.Id}
+                    key={creator.Id}
+                  />
+                );
+              })
+            ) : (
+              <a>No Creators found</a>
+            )}
+            {/* <ProfileCard
             image={kushagra}
             name={"Kushagra Sarathe"}
             intro={
@@ -124,8 +135,13 @@ export default function Explore() {
               "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate corporis placeat earum at ex illo eos sint a optio natus, saepe doloremque sapiente dolorem sunt, voluptas perspiciatis iure repellendus facilis."
             }
           /> */}
+          </div>
         </div>
-      </div>
+      ) : (
+        <>
+          <Loading _loading={isLoading} _message={message} />
+        </>
+      )}
     </>
   );
 }

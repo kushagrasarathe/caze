@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../src/components/Button";
 import Navbar from "../src/components/Navbar";
 import styles from "../styles/Home.module.css";
@@ -20,9 +20,18 @@ import {
 } from "wagmi";
 import { StoreData } from "../src/components/StoreData";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import Loading from "../src/components/Loader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [isUploaded, setIsUploaded] = useState(false);
+  const [isCreator, setIsCreator] = useState(false);
+
+  const notify = (message) => toast(`${message}`);
+
   /// to set the Content Uploaded
   // const [content, setContent] = useState([]);
   // const [contentIpfs, setContentIpfs] = useState("");
@@ -57,11 +66,31 @@ export default function Register() {
     signerOrProvider: signer || provider,
   });
 
+  const checkCreator = async () => {
+    try {
+      setIsLoading(true);
+      console.log("Checking if Creator or Not");
+      const check = await Creator_contract.checkStatus(address);
+      console.log(check);
+      // fetch the value from the fetch
+      setIsCreator(check);
+      if (check) {
+        notify("You are already a creator");
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      notify(error);
+    }
+  };
+
   /// to upload the pfp to the ipfs and get a hash --- working
   async function uploadPfp() {
     try {
+      setIsLoading(true);
+      setMessage("Profile uploading to IPFS ...");
       console.log("Profile uploading to IPFS ...");
-
       const CID = await StoreContent(pfp);
       const hash = `https://ipfs.io/ipfs/${CID}`;
       setPfpIpfs(hash);
@@ -70,15 +99,19 @@ export default function Register() {
         hash
       );
       updateData(name, bio, title, hash, pfpIpfs);
-      return true;
+      setIsLoading(false);
     } catch (error) {
       console.log("Error uploading file: ", error);
+      setIsLoading(false);
+      notify(error);
     }
   }
 
   // to update all the data to ceramic
   const updateData = async (Name, Bio, Title, _PfpIpfs, _pfp) => {
     try {
+      setIsLoading(true);
+      setMessage("Updating data to the IPFS");
       console.log("Updating data to the IPFS");
       const CID = await StoreData(Name, Bio, Title, _PfpIpfs, _pfp);
       const hash = `https://ipfs.io/ipfs/${CID.ipnft}/metadata.json`;
@@ -86,14 +119,18 @@ export default function Register() {
       console.log(hash);
       console.log("Data uploaded 🚀🚀");
       addCreator(address, hash);
+      setIsLoading(false);
     } catch (err) {
       console.log(err);
+      setIsLoading(false);
+      notify(err);
     }
   };
 
   /// function to add the creator to the contract with the details
   const addCreator = async (Address, IPFSdata) => {
     try {
+      setIsLoading(true);
       console.log("Adding the Creator Profile ... ");
       const tx = await Creator_contract.addCreator(Address, IPFSdata);
       await tx.wait();
@@ -101,13 +138,17 @@ export default function Register() {
       const ID = parseInt(tx.value._hex);
       console.log(ID);
       setId(ID);
-      const link = `https://localhost:3000/profile/${ID}`;
+      const link = `https://cazeio.vercel.app/profile/${ID}`;
       console.log(link);
       setSharableLink(link);
       console.log("Creator Added and Profile added Successfully🚀🚀");
       // uploadContent(ID);
+      setIsLoading(false);
+      setIsUploaded(true);
     } catch (err) {
       console.log(err);
+      setIsLoading(false);
+      notify(err);
     }
   };
 
@@ -157,89 +198,109 @@ export default function Register() {
         /// Addcontent to the Contract
         setIsLoading(false);
       } else {
-        window.alert("Connect your wallet");
+        notify("Connect your wallet");
       }
     } catch (err) {
       console.log(err);
     }
   };
 
+  useEffect(() => {
+    if (isConnected) {
+      notify("Wallet Connected");
+      checkCreator();
+    } else {
+      notify("Connect your wallet to proceed");
+    }
+  }, []);
+
   return (
     <>
-      <div className={styles.explore}>
-        <h1 className={styles.section_heading}>Register</h1>
-        <div className={styles.register_section}>
-          <p>Please fill this form to register as creator.</p>
-          <hr />
-          <div>
-            <div className={styles.register_label}>Profile Picture: </div>
-            <input
-              className={styles.register_input}
-              type="file"
-              onChange={(e) => {
-                setPfp(e.target.files);
-                setPfpIpfs(e.target.files[0]);
-              }}
-            />
-            {/* {fileUrl && <img src={fileUrl} width="600px" />} */}
+      <ToastContainer autoClose={2000} />
+      {!isLoading ? (
+        <>
+          {!isCreator ? (
+            <>
+              {!isUploaded ? (
+                <div className={styles.explore}>
+                  <h1 className={styles.section_heading}>Register</h1>
+                  <div className={styles.register_section}>
+                    <p>Please fill this form to register as creator.</p>
+                    <hr />
+                    <div>
+                      <div className={styles.register_label}>
+                        Profile Picture:{" "}
+                      </div>
+                      <input
+                        className={styles.register_input}
+                        type="file"
+                        onChange={(e) => {
+                          setPfp(e.target.files);
+                          setPfpIpfs(e.target.files[0]);
+                        }}
+                      />
+                      {/* {fileUrl && <img src={fileUrl} width="600px" />} */}
 
-            <div className={styles.register_label}>Full Name</div>
-            <input
-              className={styles.register_input}
-              placeholder="Creator Name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+                      <div className={styles.register_label}>Full Name</div>
+                      <input
+                        className={styles.register_input}
+                        placeholder="Creator Name"
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
 
-            <div className={styles.register_label}>Title</div>
-            <input
-              className={styles.register_input}
-              placeholder="Title Ex: NFT Artist"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
+                      <div className={styles.register_label}>Title</div>
+                      <input
+                        className={styles.register_input}
+                        placeholder="Title Ex: NFT Artist"
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                      />
+                    </div>
 
-          <div className={styles.register_label}>
-            Describe your content{" "}
-            <span className={styles.small}> &#40;min 200 chars&#41;</span>{" "}
-          </div>
-          <textarea
-            placeholder="Describe your work"
-            className={styles.register_input_about}
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-          ></textarea>
-
-          {/* <div className={styles.register_label}>
-            Upload your work to showcase
-          </div> */}
-          {/* <input
-            className={styles.register_input}
-            type="file"
-            multiple
-            onChange={(e) => setContent(e.target.files[0])}
-          /> */}
-          {/* {fileUrl && <img src={fileUrl} width="600px" />} */}
-          <hr />
-          <button className={styles.submit_btn} onClick={handleSubmit}>
-            Register
-          </button>
-          {/* 
-          {isConnected ? (
-            <button className={styles.submit_btn} onClick={handleSubmit}>
-              Register
-            </button>
+                    <div className={styles.register_label}>
+                      Describe your content{" "}
+                      <span className={styles.small}>
+                        {" "}
+                        &#40;min 200 chars&#41;
+                      </span>{" "}
+                    </div>
+                    <textarea
+                      placeholder="Describe your work"
+                      className={styles.register_input_about}
+                      value={bio}
+                      onChange={(e) => setBio(e.target.value)}
+                    ></textarea>
+                    {/* {fileUrl && <img src={fileUrl} width="600px" />} */}
+                    <hr />
+                    <button
+                      className={styles.submit_btn}
+                      onClick={handleSubmit}
+                    >
+                      Register
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <a>Form is Filled now</a>{" "}
+                  <a>Share this link : {SharableLink}</a>
+                </>
+              )}
+            </>
           ) : (
-            <div className={styles.connect_btn}>
-              <ConnectButton />
-            </div>
-            // <ConnectButton />
-          )} */}
-        </div>
-      </div>
+            <>
+              <a> You are Already a Creator</a>
+            </>
+          )}
+        </>
+      ) : (
+        <>
+          <Loading _loading={isLoading} _message={message} />
+        </>
+      )}
     </>
   );
 }
