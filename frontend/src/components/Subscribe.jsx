@@ -84,7 +84,9 @@ const Subscribe = (props) => {
         </button>
       ) : (
         <>
-          <Loading _loading={isLoading} _message={message} />
+          <div className={styles.fullScreen}>
+            <Loading _loading={isLoading} _message={message} />
+          </div>
         </>
       )}
     </>

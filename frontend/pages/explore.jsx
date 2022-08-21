@@ -119,7 +119,9 @@ export default function Explore() {
                 );
               })
             ) : (
-              <a>No Creators found</a>
+              <div className={styles.fullScreen}>
+                <a>No Creators found</a>
+              </div>
             )}
             {/* <ProfileCard
             image={kushagra}
@@ -139,7 +141,9 @@ export default function Explore() {
         </div>
       ) : (
         <>
-          <Loading _loading={isLoading} _message={message} />
+          <div className={styles.fullScreen}>
+            <Loading _loading={isLoading} _message={message} />
+          </div>
         </>
       )}
     </>

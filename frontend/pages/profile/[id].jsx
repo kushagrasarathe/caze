@@ -247,7 +247,9 @@ export default function Creator() {
         </div>
       ) : (
         <>
-          <Loading _loading={isLoading} _message={message} />
+          <div className={styles.fullScreen}>
+            <Loading _loading={isLoading} _message={message} />
+          </div>
         </>
       )}
     </>

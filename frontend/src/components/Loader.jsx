@@ -5,9 +5,13 @@ const Loader = styled.div`
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid #425bed; /* Blue */
   border-radius: 50%;
-  width: 120px;
-  height: 120px;
+  width: 80px;
+  height: 80px;
   animation: spin 2s linear infinite;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  top: 50%;
 
   @keyframes spin {
     0% {

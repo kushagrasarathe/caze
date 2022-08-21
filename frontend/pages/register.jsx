@@ -285,20 +285,26 @@ export default function Register() {
                 </div>
               ) : (
                 <>
-                  <a>Form is Filled now</a>{" "}
-                  <a>Share this link : {SharableLink}</a>
+                  <div className={styles.fullScreen}>
+                    <a>Form is Filled now</a>{" "}
+                    <a href={SharableLink}>Share this link : {SharableLink}</a>
+                  </div>
                 </>
               )}
             </>
           ) : (
             <>
-              <a> You are Already a Creator</a>
+              <div className={styles.fullScreen}>
+                <a> You are Already a Creator</a>
+              </div>
             </>
           )}
         </>
       ) : (
         <>
-          <Loading _loading={isLoading} _message={message} />
+          <div className={styles.fullScreen}>
+            <Loading _loading={isLoading} _message={message} />
+          </div>
         </>
       )}
     </>
