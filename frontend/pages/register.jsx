@@ -138,7 +138,7 @@ export default function Register() {
       const ID = parseInt(tx.value._hex);
       console.log(ID);
       setId(ID);
-      const link = `https://localhost:3000/profile/${ID}`;
+      const link = `https://cazeio.vercel.app/profile/${ID}`;
       console.log(link);
       setSharableLink(link);
       console.log("Creator Added and Profile added Successfully🚀🚀");
