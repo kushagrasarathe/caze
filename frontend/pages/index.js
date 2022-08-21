@@ -18,12 +18,11 @@ import ceramic from "../src/assets/ceramic.png";
 import valist from "../src/assets/valist.png";
 import spheron from "../src/assets/spheron.svg";
 import web3storage from "../src/assets/web3storage.svg";
-import nftport from "../src/assets/nftport.svg";
+import polygon from "../src/assets/polygon.svg";
 import Footer from "../src/components/Footer";
 import PlanCard from "../src/components/PlanCard";
 import Button from "../src/components/Button";
 import { Owner_address } from "../utils/constants";
-
 
 export default function Home() {
   return (
@@ -35,8 +34,8 @@ export default function Home() {
             <Image src={banner} />
           </span>
           <span className={styles.tagline}>
-            Subscribe and support your favorite creators and get access to exclusive
-            content
+            Subscribe and support your favorite creators and get access to
+            exclusive content
           </span>
 
           <Link href={"/explore"}>
@@ -44,10 +43,8 @@ export default function Home() {
           </Link>
         </main>
       </div>
-      
 
       <div className={styles.container}>
-
         <div className={styles.category}>
           <h1 className={styles.section_heading}>Explore among categories</h1>
           <div className={styles.categories_cards}>
@@ -90,76 +87,107 @@ export default function Home() {
             </Hover>
           </div>
         </div>
-
-
       </div>
-        <div className={styles.plans}>
-          <h1 className={styles.section_heading}>Choose across 3 plans </h1>
-          <div className={styles.plan_cards}>
-            <Hover scale={1} perspective={900} speed={500}>
-              <div className={`${styles.plan_card} ${styles.shadow}`}>
-                <div className={`${styles.card_content}`}>
-                  <h2>Silver</h2>
-                  <br />
-                  <div className={styles.card_img}>
-                    <Image src={paperplane} alt="" />
-                  </div>
-                  <br />
-                  <h3>1 Month</h3>
-                  <p>0.2 MATIC</p>
-                  <br />
-                  <div className={styles.plan_benefits}>
-                    <h4>Benefits</h4>
-                    <li>Exclusie Content</li>
-                    <li>Membership NFT</li>
-                  </div>
+      <div className={styles.plans}>
+        <h1 className={styles.section_heading}>Choose across 3 plans </h1>
+        <div className={styles.plan_cards}>
+          <Hover scale={1} perspective={900} speed={500}>
+            <div className={`${styles.plan_card} ${styles.shadow}`}>
+              <div className={`${styles.card_content}`}>
+                <h2>Silver</h2>
+                <br />
+                <div className={styles.card_img}>
+                  <Image src={paperplane} alt="" />
+                </div>
+                <br />
+                <h3>1 Month</h3>
+                <p>0.2 MATIC</p>
+                <br />
+                <div className={styles.plan_benefits}>
+                  <h4>Benefits</h4>
+                  <li>Exclusie Content</li>
+                  <li>Membership NFT</li>
                 </div>
               </div>
-            </Hover>
-            <Hover scale={1} perspective={900} speed={500}>
-              <div className={`${styles.plan_card} ${styles.shadow}`}>
-                <div className={`${styles.card_content}`}>
-                  <h2>Gold</h2>
-                  <br />
-                  <div className={styles.card_img}>
-                    <Image src={plane} alt="" />
-                  </div>
-                  <br />
-                  <h3>3 Month</h3>
-                  <p>0.5 MATIC</p>
-                  <br />
-                  <div className={styles.plan_benefits}>
-                    <h4>Benefits</h4>
-                    <li>Silver Plan Benifits</li>
-                    <li>Personalized NFT from Creator</li>
-                    <li>Token Rewards</li>
-                  </div>
+            </div>
+          </Hover>
+          <Hover scale={1} perspective={900} speed={500}>
+            <div className={`${styles.plan_card} ${styles.shadow}`}>
+              <div className={`${styles.card_content}`}>
+                <h2>Gold</h2>
+                <br />
+                <div className={styles.card_img}>
+                  <Image src={plane} alt="" />
+                </div>
+                <br />
+                <h3>3 Month</h3>
+                <p>0.5 MATIC</p>
+                <br />
+                <div className={styles.plan_benefits}>
+                  <h4>Benefits</h4>
+                  <li>Silver Plan Benifits</li>
+                  <li>Personalized NFT from Creator</li>
+                  <li>Token Rewards</li>
                 </div>
               </div>
-            </Hover>
-            <Hover scale={1} perspective={900} speed={500}>
-              <div className={`${styles.plan_card} ${styles.shadow}`}>
-                <div className={`${styles.card_content}`}>
-                  <h2>Platinum</h2>
-                  <br />
-                  <div className={styles.card_img}>
-                    <Image src={spaceship} alt="" />
-                  </div>
-                  <br />
-                  <h3>6 Month</h3>
-                  <p>1.0 MATIC</p>
-                  <br />
-                  <div className={styles.plan_benefits}>
-                    <h4>Benefits</h4>
-                    <li>Gold Plan Benifits</li>
-                    <li>Private Chat Access</li>
-                    <li>1-1 Meet with Creator</li>
-                  </div>
+            </div>
+          </Hover>
+          <Hover scale={1} perspective={900} speed={500}>
+            <div className={`${styles.plan_card} ${styles.shadow}`}>
+              <div className={`${styles.card_content}`}>
+                <h2>Platinum</h2>
+                <br />
+                <div className={styles.card_img}>
+                  <Image src={spaceship} alt="" />
+                </div>
+                <br />
+                <h3>6 Month</h3>
+                <p>1.0 MATIC</p>
+                <br />
+                <div className={styles.plan_benefits}>
+                  <h4>Benefits</h4>
+                  <li>Gold Plan Benifits</li>
+                  <li>Private Chat Access</li>
+                  <li>1-1 Meet with Creator</li>
                 </div>
               </div>
-            </Hover>
+            </div>
+          </Hover>
+        </div>
+      </div>
+
+      <div className={styles.plans}>
+        <h1 className={styles.section_heading}>Technologies Used</h1>
+
+        <div className={styles.sponsor_images}>
+          <div className={styles.sponsor}>
+            <a
+              href="https://polygon.technology"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Image src={polygon} />
+            </a>
+          </div>
+          <div className={`${styles.sponsor} ${styles.ipfs}`}>
+            <a href="https://ipfs.io" target="_blank" rel="noreferrer">
+              <Image src={ipfs} />
+            </a>
+          </div>
+          <div className={styles.sponsor}>
+            <a href="https://web3.storage/" target="_blank" rel="noreferrer">
+              <Image src={web3storage} />
+            </a>
+            <p>Web3.Storage</p>
+          </div>
+
+          <div className={styles.sponsor}>
+            <a href="https://spheron.network" target="_blank" rel="noreferrer">
+              <Image src={spheron} />
+            </a>
           </div>
         </div>
+      </div>
     </>
   );
 }

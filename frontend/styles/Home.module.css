@@ -668,6 +668,34 @@
   align-items: center;
 }
 
+.sponsor {
+  font-family: SuisseIntl, helvetica, sans-serif;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* flex-direction: column; */
+  margin: 30px;
+  max-width: 350px;
+  transition: ease-in-out 0.2s;
+}
+
+.sponsor:hover {
+  transform: scale(1.1);
+}
+
+.sponsor_images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ipfs {
+  width: 80px;
+}
+
+
 @media screen and (max-width: 992px) {
 
   .user_section, .creator_section {
