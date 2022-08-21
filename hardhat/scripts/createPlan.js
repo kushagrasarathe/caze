@@ -8,6 +8,11 @@ const ABI = [
         name: "nftContract",
         type: "address",
       },
+      {
+        internalType: "address",
+        name: "creatorContract",
+        type: "address",
+      },
     ],
     stateMutability: "payable",
     type: "constructor",
@@ -88,28 +93,9 @@ const ABI = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_creator",
-        type: "address",
-      },
-    ],
-    name: "addCreator",
-    outputs: [
-      {
         internalType: "uint256",
-        name: "_id",
+        name: "_creatorID",
         type: "uint256",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_creator",
-        type: "address",
       },
       {
         internalType: "uint256",
@@ -120,25 +106,6 @@ const ABI = [
     name: "cancel",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_creator",
-        type: "address",
-      },
-    ],
-    name: "checkBalance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "_balance",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -187,11 +154,6 @@ const ABI = [
       {
         components: [
           {
-            internalType: "address",
-            name: "creator",
-            type: "address",
-          },
-          {
             internalType: "uint256",
             name: "amount",
             type: "uint256",
@@ -213,25 +175,39 @@ const ABI = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "_id",
+        type: "uint256",
+      },
+    ],
+    name: "getSubscribers",
+    outputs: [
+      {
+        internalType: "address[]",
+        name: "",
+        type: "address[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "address",
         name: "user",
         type: "address",
       },
       {
-        internalType: "address",
-        name: "creator",
-        type: "address",
+        internalType: "uint256",
+        name: "_creatorId",
+        type: "uint256",
       },
     ],
     name: "getSubscriptions",
     outputs: [
       {
         components: [
-          {
-            internalType: "address",
-            name: "subscriber",
-            type: "address",
-          },
           {
             internalType: "uint256",
             name: "planId",
@@ -246,6 +222,11 @@ const ABI = [
             internalType: "uint256",
             name: "nextPayment",
             type: "uint256",
+          },
+          {
+            internalType: "bool",
+            name: "subscriptionOn",
+            type: "bool",
           },
         ],
         internalType: "struct SubscriptionPlan.Subscription",
@@ -277,9 +258,9 @@ const ABI = [
         type: "address",
       },
       {
-        internalType: "address",
-        name: "_creator",
-        type: "address",
+        internalType: "uint256",
+        name: "_creatorID",
+        type: "uint256",
       },
       {
         internalType: "uint256",
@@ -308,11 +289,6 @@ const ABI = [
     name: "plans",
     outputs: [
       {
-        internalType: "address",
-        name: "creator",
-        type: "address",
-      },
-      {
         internalType: "uint256",
         name: "amount",
         type: "uint256",
@@ -329,9 +305,9 @@ const ABI = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_creator",
-        type: "address",
+        internalType: "uint256",
+        name: "_creatorID",
+        type: "uint256",
       },
       {
         internalType: "uint256",
@@ -347,23 +323,42 @@ const ABI = [
   {
     inputs: [
       {
-        internalType: "address",
+        internalType: "uint256",
         name: "",
-        type: "address",
+        type: "uint256",
       },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "subscribers",
+    outputs: [
       {
         internalType: "address",
         name: "",
         type: "address",
       },
     ],
-    name: "subscriptions",
-    outputs: [
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
       {
         internalType: "address",
-        name: "subscriber",
+        name: "",
         type: "address",
       },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "subscriptions",
+    outputs: [
       {
         internalType: "uint256",
         name: "planId",
@@ -379,6 +374,11 @@ const ABI = [
         name: "nextPayment",
         type: "uint256",
       },
+      {
+        internalType: "bool",
+        name: "subscriptionOn",
+        type: "bool",
+      },
     ],
     stateMutability: "view",
     type: "function",
@@ -386,13 +386,8 @@ const ABI = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "creator",
-        type: "address",
-      },
-      {
         internalType: "uint256",
-        name: "creatorId",
+        name: "_Id",
         type: "uint256",
       },
     ],
@@ -412,12 +407,15 @@ const ABI = [
     type: "receive",
   },
 ];
-const private_key = "";
-const provider = new ethers.providers.JsonRpcProvider("");
+const private_key =
+  "2de51c96959633b400d5fab4ffbcf5c0e6bc88a81d9ce769ee97537f43f1e7f9";
+const provider = new ethers.providers.JsonRpcProvider(
+  "https://polygon-mumbai.g.alchemy.com/v2/bZFiL-IFAMe4QAh9Q30gDQ7m1vxEss4u"
+);
 const wallet = new ethers.Wallet(private_key, provider);
 
 async function main() {
-  const contractaddress = "0x92ce05f2f354f6a047a9202F60A1F61311c04169";
+  const contractaddress = "0x12490D2890Be78ac054Cdf901B1DD2159b01210F";
   const ownerAddress = "0xe22eCBbA8fB9C0124eeCb6AfE0bf6A487424989f";
   console.log("Creating the fixed plans now for owner .. \n ");
   const contract = new ethers.Contract(contractaddress, ABI, provider);

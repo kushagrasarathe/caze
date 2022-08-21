@@ -37,7 +37,7 @@ export default function Creator() {
     // console.log(openForm);
   }
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
 
   const provider = useProvider();
@@ -154,7 +154,13 @@ export default function Creator() {
               <Image className={styles.bannerimg} src={banner} />
             </div>
             <div className={styles.profile}>
-              <Image className={styles.profileimg} src={dataObj.image} />
+              <Image
+                className={styles.profileimg}
+                src={data ? data.Image : dataObj.image}
+                alt="creator profile picture"
+                width={200}
+                height={200}
+              />
             </div>
           </div>
           <div className={styles.textContent}>

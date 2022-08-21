@@ -12,6 +12,8 @@ export default function ProfileCard(props) {
             src={props.image}
             className={styles.profile_image}
             alt="creator profile picture"
+            width={200}
+            height={200}
           />
         </div>
         <h1 className={styles.profile_name}>{props.name}</h1>

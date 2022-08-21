@@ -16,6 +16,12 @@ Creator contract deployed to: 0x60140FfDF1296f8534cC97140b6D3317f077db2F
 Content contract deployed to: 0xD6D1546419B94c085c7caC8D8BE90ff85f85c527
 Subscription deployed to: 0x33e5DeD17F819ad57DB865c77e325F743016A602
 
+New last /// 21-08-2022
+NFT contract deployed to: 0x0e017a1E08849754dB855CA75736A06EC058aDF9
+Content contract deployed to: 0x57bF265206dC40Da79EEE8Ca8EA657c463f139D9
+Creator contract deployed to: 0x9A9C9A993209086d4c55509A8AB293e65Bc84330
+Subscription deployed to: 0x12490D2890Be78ac054Cdf901B1DD2159b01210F
+0x009eedD5D0aD4D1239eAcF36be7dbcf464bA0129
 # Advanced Sample Hardhat Project
 
 This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.

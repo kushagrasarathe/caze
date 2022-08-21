@@ -98,8 +98,8 @@ export default function Register() {
         "Profile uploaded to IPFS successfully 🚀🚀  with CID : ",
         hash
       );
-      updateData(name, bio, title, hash, pfpIpfs);
       setIsLoading(false);
+      updateData(name, bio, title, hash, pfpIpfs);
     } catch (error) {
       console.log("Error uploading file: ", error);
       setIsLoading(false);
@@ -118,8 +118,8 @@ export default function Register() {
       setIpfsData(hash);
       console.log(hash);
       console.log("Data uploaded 🚀🚀");
-      addCreator(address, hash);
       setIsLoading(false);
+      addCreator(address, hash);
     } catch (err) {
       console.log(err);
       setIsLoading(false);
@@ -148,7 +148,7 @@ export default function Register() {
     } catch (err) {
       console.log(err);
       setIsLoading(false);
-      notify(err);
+      notify(err.message);
     }
   };
 

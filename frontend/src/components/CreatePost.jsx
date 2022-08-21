@@ -37,8 +37,8 @@ export default function CreatePost(props) {
       const hash = `https://ipfs.io/ipfs/${CID}`;
       setContentIpfs(hash);
       console.log("Content uploaded to IPFS successfully 🚀🚀 ");
-      uploadPost(hash);
       setIsLoading(false);
+      uploadPost(hash);
     } catch (error) {
       setIsLoading(false);
       console.log("Error uploading file: ", error);
@@ -55,8 +55,8 @@ export default function CreatePost(props) {
       const hash = `https://ipfs.io/ipfs/${cid}/post.json`;
       console.log("Post uploaded to IPFS");
       setPostIpfs(hash);
-      addContent(Id, hash);
       setIsLoading(false);
+      addContent(Id, hash);
     } catch (error) {
       setIsLoading(false);
       console.log(error);

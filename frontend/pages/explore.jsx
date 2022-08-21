@@ -110,7 +110,7 @@ export default function Explore() {
               creators.map((creator) => {
                 return (
                   <ProfileCard
-                    image={kushagra}
+                    image={creator.Image}
                     name={creator.Name}
                     intro={creator.Description}
                     id={creator.Id}
