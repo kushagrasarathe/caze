@@ -53,6 +53,8 @@ NFTs are of 4 types , 1 is for Creator , and other 3 for subscription plans like
 
 [NFT Collection](https://testnets.opensea.io/collection/caze)
 
+## Sponsor Technologies used : 
+
 IPFS is data storage platform for our platform . All the data like Creator Profiles , Creator Posts are stored on IPFS with web3.storage SDKs , with help of docs provided by the team. Then the data entered in the input form is converted into JSON format , then JSON file is uploaded to IPFS with web3.storage . Then CID Links are stored in the contract for immutability and security of the data. Then the data is rendered in the frontend after fetching the JSON object directly with the CID links stored in the contract.
 Check this component : [StoreContent](https://github.com/kushagrasarathe/caze/blob/main/frontend/src/components/StoreContent.jsx) , [StoreData](https://github.com/kushagrasarathe/caze/blob/main/frontend/src/components/StoreData2.jsx) ,
 [StorePost](https://github.com/kushagrasarathe/caze/blob/main/frontend/src/components/StorePost.jsx)
