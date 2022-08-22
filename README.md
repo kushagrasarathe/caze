@@ -1,5 +1,10 @@
 ## CAZE
 
+Try it out link : https://cazeio.vercel.app/
+
+<img width="935" alt="image" src="https://user-images.githubusercontent.com/91938348/185983539-e8a897c6-222f-4881-a2cf-e05be427998e.png">
+
+
 ## Inspiration
 
 The initial idea was inspired from Patreon which is a web2 crowdfunding and supporting platform for creators. We wanted to build a project in web3 and started working on Caze to support all the creators out there using web3 technologies . A platform where audience can subscribe for special to creators and enjoy a bunchfull of exclusive perks offered from different subscription plan.
