@@ -2,7 +2,7 @@
 
 - Project Name : Caze
 - Link to the code where the component is added : "https://github.com/Dhruv-2003/caze/blob/main/frontend/src/components/unstoppable.jsx"
-- Pull request Link :""
+- Pull request Link :"https://github.com/kushagrasarathe/caze/pull/2"
 - Recorded Video of demo : "https://www.loom.com/share/2f9ba9d1224f45dca7ffaffa45a17fb2"
 - Live URL : Not yet merged
 - Person of Contact: Dhruv Agarwal (Email: contact.dhruvagarwal@gmail.com)
