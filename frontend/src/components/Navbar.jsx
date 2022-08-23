@@ -6,6 +6,7 @@ import Link from "next/link";
 import twitter from "../assets/twitter.svg";
 import Button from "./Button";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import UDomain from "./unstoappableDomains";
 
 export default function Navbar() {
   const [isNavExpanded, setIsNavExpanded] = useState(true);
@@ -89,7 +90,8 @@ export default function Navbar() {
           <Image src={twitter} />
         </a>
         <span className={`${styles.show} ${styles.connect_btn}`}>
-          <ConnectButton />
+          {/* <ConnectButton /> */}
+          <UDomain />
         </span>
       </div>
     </nav>
