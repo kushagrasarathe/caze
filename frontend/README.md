@@ -6,7 +6,7 @@
 
 - Public Repo Link :"https://github.com/kushagrasarathe/caze/tree/addition"
 
-- Recorded Video of demo : ""
+- Recorded Video of demo : "https://clipchamp.com/watch/h3uliiGyO1i"
 
 - Live URL : "https://caze-tfntj.spheron.app/"
 
