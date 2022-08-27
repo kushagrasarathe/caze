@@ -36,7 +36,7 @@ function UnstoppableDomain() {
 
   return (
     <>
-      <button onClick={login} className={styles.button}>
+      <button onClick={login} className={styles.explore_btn}>
         {auth != null ? auth["sub"] : "Login with Unstoppable"}
       </button>
     </>
