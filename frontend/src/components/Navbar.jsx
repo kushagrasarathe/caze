@@ -6,7 +6,7 @@ import Link from "next/link";
 import twitter from "../assets/twitter.svg";
 import Button from "./Button";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import UDomain from "./unstoappableDomains";
+import UnstoppableDomain from "./unstoppableDomains";
 
 export default function Navbar() {
   const [isNavExpanded, setIsNavExpanded] = useState(true);
@@ -79,7 +79,7 @@ export default function Navbar() {
           </li>
           <li className={styles.hide}>
             <span className={styles.connect_btn}>
-              <ConnectButton />
+              {/* <ConnectButton /> */}
             </span>
           </li>
         </ul>
@@ -91,7 +91,7 @@ export default function Navbar() {
         </a>
         <span className={`${styles.show} ${styles.connect_btn}`}>
           {/* <ConnectButton /> */}
-          <UDomain />
+          <UnstoppableDomain />
         </span>
       </div>
     </nav>
