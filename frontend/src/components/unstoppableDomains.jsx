@@ -3,8 +3,8 @@ import UAuth from "@uauth/js";
 import styles from "../../styles/Home.module.css";
 
 const uauth = new UAuth({
-  clientID: "9aaea778-f1a6-433f-b216-1b7a0a1cc087",
-  redirectUri: "",
+  clientID: "31822393-2b0c-44dd-95ef-b0d54e956869",
+  redirectUri: "https://caze-tfntj.spheron.app/",
 });
 
 function UnstoppableDomain() {
